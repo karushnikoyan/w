@@ -112,14 +112,7 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                         },
                       );
                     },
-                    onDismissed: (direction) async {
-                      await cubit.state.exercise.removeAt(index);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Exercise is deleted'),
-                        ),
-                      );
-                    },
+
                     direction: DismissDirection.endToStart,
 
                     background: Align(
