@@ -174,7 +174,7 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                                            ),
 
 
-
+                                            if(cubit.state.exercise[index].weight != "")
                                             Padding(
                                               padding: const EdgeInsets.all(4.0),
                                               child: Container( decoration : BoxDecoration(
@@ -184,7 +184,7 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                                                 ),
                                               ),child: Padding(
                                                 padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                                child: Text(cubit.state.exercise[index].weight,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                                child: Text("${cubit.state.exercise[index].weight} kg",style: TextStyle(fontSize: 22 ,color: Colors.white60),),
                                               )),
                                             ),
 
