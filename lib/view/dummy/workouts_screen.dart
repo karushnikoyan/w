@@ -63,104 +63,110 @@ class DisplayWorkoutScreen extends StatelessWidget {
                 //54.0
                 padding:
                     EdgeInsets.all(MediaQuery.of(context).size.width / 7.4),
-                child: ListView.builder(
-                  itemCount: cubit.state.workoutList.length,
-                  itemBuilder: (context, index) {
-                    Workout item = cubit.state.workoutList[index];
-                    return Dismissible(
-                      key: UniqueKey(),
-                      confirmDismiss: (DismissDirection direction) async {
-                        return await showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text("Confirm"),
-                              content: const Text(
-                                  "Are you sure you wish to delete this item?"),
-                              actions: <Widget>[
-                                ElevatedButton(
-                                  onPressed: () =>
-                                      Navigator.of(context).pop(false),
-                                  child: const Text("CANCEL"),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.redAccent
+                child: NotificationListener<OverscrollIndicatorNotification>(
+                  onNotification: (overscroll) {
+                    overscroll.disallowIndicator();
+                    return false;
+                  },
+                  child: ListView.builder(
+                    itemCount: cubit.state.workoutList.length,
+                    itemBuilder: (context, index) {
+                      Workout item = cubit.state.workoutList[index];
+                      return Dismissible(
+                        key: UniqueKey(),
+                        confirmDismiss: (DismissDirection direction) async {
+                          return await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text("Confirm"),
+                                content: const Text(
+                                    "Are you sure you wish to delete this item?"),
+                                actions: <Widget>[
+                                  ElevatedButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(false),
+                                    child: const Text("CANCEL"),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.redAccent
+                                    ),
                                   ),
-                                ),
-                                ElevatedButton(
-                                    onPressed: () async {
-                                      await cubit.removeWorkout(index);
-                                      Navigator.of(context).pop(true);
-                                    },
-                                    child: const Text("DELETE"),
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.greenAccent
-                                  ),),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      onDismissed: (direction) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('${item.name} is deleted'),
-                          ),
-                        );
-                      },
-                      background: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Expanded(
-                          child: Container(
-                            // width:  40,
-                            // size.height * 0.20,
-                            color: AppColors.cRed,
-                            child: Icon(
-                              Icons.delete,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      child: Center(
-                          child: Column(
-                        children: [
-                          const SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) {
-                                  return ExerciseScreen(
-                                      workout: cubit.state.workoutList[index],
-                                      exercise: cubit
-                                              .state.workoutList[index].exercise
-                                              ?.toList() ??
-                                          []);
-                                }),
+                                  ElevatedButton(
+                                      onPressed: () async {
+                                        await cubit.removeWorkout(index);
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      child: const Text("DELETE"),
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.greenAccent
+                                    ),),
+                                ],
                               );
                             },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.cOcean,
-                                elevation: 0,
-                                foregroundColor: Colors.white60,
-                                shadowColor: Colors.transparent),
+                          );
+                        },
+                        onDismissed: (direction) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('${item.name} is deleted'),
+                            ),
+                          );
+                        },
+                        background: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Expanded(
                             child: Container(
-                              width: size.width * 0.6,
-                              height: size.height * 0.06,
-                              child: Center(
-                                child: Text(
-                                  cubit.state.workoutList[index].name,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                              // width:  40,
+                              // size.height * 0.20,
+                              color: AppColors.cRed,
+                              child: Icon(
+                                Icons.delete,
+                                color: Colors.white,
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 10.0,
-                          )
-                        ],
-                      )),
-                    );
-                  },
+                        ),
+                        child: Center(
+                            child: Column(
+                          children: [
+                            const SizedBox(height: 10),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (context) {
+                                    return ExerciseScreen(
+                                        workout: cubit.state.workoutList[index],
+                                        exercise: cubit
+                                                .state.workoutList[index].exercise
+                                                ?.toList() ??
+                                            []);
+                                  }),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.cOcean,
+                                  elevation: 0,
+                                  foregroundColor: Colors.white60,
+                                  shadowColor: Colors.transparent),
+                              child: Container(
+                                width: size.width * 0.6,
+                                height: size.height * 0.06,
+                                child: Center(
+                                  child: Text(
+                                    cubit.state.workoutList[index].name,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            )
+                          ],
+                        )),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

@@ -74,189 +74,196 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                 ),
                 fit: BoxFit.cover),
           ),
-          child: ListView.builder(
-              itemCount: cubit.state.exercise.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width / 30),
-                  child: Dismissible(
-                    key: UniqueKey(),
-                    confirmDismiss: (DismissDirection direction) async {
-                      return await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text("Confirm"),
-                            content: const Text(
-                                "Are you sure you wish to delete this item?"),
-                            actions: <Widget>[
-                              ElevatedButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pop(false),
-                                child: const Text("CANCEL"),
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.cancel),
-                              ),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  await cubit.removeExercise(index);
-                                  Navigator.of(context).pop(true);
-                                },
-                                child: const Text("DELETE"),
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.apply),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
+          child: NotificationListener<OverscrollIndicatorNotification>(
+            onNotification: (overscroll) {
+              overscroll.disallowIndicator();
+              return false;
+            },
+            child: ListView.builder(
 
-                    direction: DismissDirection.endToStart,
-
-                    background: Align(
-                      alignment: Alignment.centerRight,
-                      child: Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                        size: 30,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: size.width * 0.80,
-                              height: size.height / 6
-                              ,
-                              decoration: BoxDecoration(
-                                  color: AppColors.cOrange,
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(20.0)
+                itemCount: cubit.state.exercise.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding:
+                        EdgeInsets.all(MediaQuery.of(context).size.width / 30),
+                    child: Dismissible(
+                      key: UniqueKey(),
+                      confirmDismiss: (DismissDirection direction) async {
+                        return await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Confirm"),
+                              content: const Text(
+                                  "Are you sure you wish to delete this item?"),
+                              actions: <Widget>[
+                                ElevatedButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(false),
+                                  child: const Text("CANCEL"),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColors.cancel),
                                 ),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    await cubit.removeExercise(index);
+                                    Navigator.of(context).pop(true);
+                                  },
+                                  child: const Text("DELETE"),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColors.apply),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
 
+                      direction: DismissDirection.endToStart,
 
+                      background: Align(
+                        alignment: Alignment.centerRight,
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                          size: 30,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Expanded(
-                                    flex: 4,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(00.0),
-                                      child: Wrap(
-                                        // crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                         Padding(
-                                           padding: const EdgeInsets.all(4.0),
-                                           child: Container(
-                                               decoration : BoxDecoration(
-                                             color : Colors.white30 ,
-                                             borderRadius: BorderRadius.all(
-                                                 Radius.circular(30.0)
-                                             ),
-                                           ),child: Padding(
-                                             padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                             child: Text(cubit.state.exercise[index].name,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                           )),
-                                         ),
+                              Container(
+                                width: size.width * 0.80,
+                                height: size.height / 6
+                                ,
+                                decoration: BoxDecoration(
+                                    color: AppColors.cOrange,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(20.0)
+                                  ),
+
+
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Expanded(
+                                      flex: 4,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(00.0),
+                                        child: Wrap(
+                                          // crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                           Padding(
+                                             padding: const EdgeInsets.all(4.0),
+                                             child: Container(
+                                                 decoration : BoxDecoration(
+                                               color : Colors.white30 ,
+                                               borderRadius: BorderRadius.all(
+                                                   Radius.circular(30.0)
+                                               ),
+                                             ),child: Padding(
+                                               padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                               child: Text(cubit.state.exercise[index].name,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                             )),
+                                           ),
 
 
 
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Container( decoration : BoxDecoration(
-                                              color : Colors.white30 ,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30.0)
-                                              ),
-                                            ),child: Padding(
-                                              padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                              child: Text(cubit.state.exercise[index].weight,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                            )),
-                                          ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Container( decoration : BoxDecoration(
+                                                color : Colors.white30 ,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(30.0)
+                                                ),
+                                              ),child: Padding(
+                                                padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                                child: Text(cubit.state.exercise[index].weight,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                              )),
+                                            ),
 
 
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Container( decoration : BoxDecoration(
-                                              color : Colors.white30 ,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30.0)
-                                              ),
-                                            ),child: Padding(
-                                              padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                              child: Text(cubit.state.exercise[index].reps,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                            )),
-                                          ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Container( decoration : BoxDecoration(
+                                                color : Colors.white30 ,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(30.0)
+                                                ),
+                                              ),child: Padding(
+                                                padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                                child: Text(cubit.state.exercise[index].reps,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                              )),
+                                            ),
 
 
 
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Container( decoration : BoxDecoration(
-                                              color : Colors.white30 ,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30.0)
-                                              ),
-                                            ),child: Padding(
-                                              padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                              child: Text(cubit.state.exercise[index].sets,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                            )),
-                                          ),
-                                        ],
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Container( decoration : BoxDecoration(
+                                                color : Colors.white30 ,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(30.0)
+                                                ),
+                                              ),child: Padding(
+                                                padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                                child: Text(cubit.state.exercise[index].sets,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                              )),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Checkbox(
-                                      activeColor: AppColors.cGray,
-                                        value: cubit.state.exercise[index].isCompleted,
-                                        onChanged: (toggle) {
-                                          cubit.toggle(
-                                              Exercise(
-                                                name: cubit.state.exercise[index].name,
-                                                weight: cubit.state.exercise[index].weight,
-                                                reps: cubit.state.exercise[index].reps,
-                                                sets: cubit.state.exercise[index].sets,
-                                                id: cubit.state.exercise[index].id,
-                                                isCompleted: toggle!,
-                                              ),
-                                              index);
-                                        }),
-                                  ),
-                                ],
+                                    Expanded(
+                                      flex: 1,
+                                      child: Checkbox(
+                                        activeColor: AppColors.cGray,
+                                          value: cubit.state.exercise[index].isCompleted,
+                                          onChanged: (toggle) {
+                                            cubit.toggle(
+                                                Exercise(
+                                                  name: cubit.state.exercise[index].name,
+                                                  weight: cubit.state.exercise[index].weight,
+                                                  reps: cubit.state.exercise[index].reps,
+                                                  sets: cubit.state.exercise[index].sets,
+                                                  id: cubit.state.exercise[index].id,
+                                                  isCompleted: toggle!,
+                                                ),
+                                                index);
+                                          }),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
 
-                          ],
-                        ),
-                        // Checkbox(
-                        //     value: cubit.state.exercise[index].isCompleted,
-                        //     onChanged: (toggle) {
-                        //       cubit.toggle(
-                        //           Exercise(
-                        //             name: cubit.state.exercise[index].name,
-                        //             weight: cubit.state.exercise[index].weight,
-                        //             reps: cubit.state.exercise[index].reps,
-                        //             sets: cubit.state.exercise[index].sets,
-                        //             id: cubit.state.exercise[index].id,
-                        //             isCompleted: toggle!,
-                        //           ),
-                        //           index);
-                        //     }),
-                      ],
+                            ],
+                          ),
+                          // Checkbox(
+                          //     value: cubit.state.exercise[index].isCompleted,
+                          //     onChanged: (toggle) {
+                          //       cubit.toggle(
+                          //           Exercise(
+                          //             name: cubit.state.exercise[index].name,
+                          //             weight: cubit.state.exercise[index].weight,
+                          //             reps: cubit.state.exercise[index].reps,
+                          //             sets: cubit.state.exercise[index].sets,
+                          //             id: cubit.state.exercise[index].id,
+                          //             isCompleted: toggle!,
+                          //           ),
+                          //           index);
+                          //     }),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColors.cOrange,
