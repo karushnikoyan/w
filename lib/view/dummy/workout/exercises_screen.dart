@@ -286,6 +286,7 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
           TextEditingController setsController = TextEditingController();
           return Scaffold(
             resizeToAvoidBottomInset: true,
+
             appBar: AppBar(
               backgroundColor: AppColors.primary,
               centerTitle: true,
@@ -337,16 +338,18 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                 )
               ],
             ),
-            backgroundColor: AppColors.modalBackground,
-            body: SingleChildScrollView(
-              child: Container(
-                height: 430,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/boy_drink.png",),
-                      fit: BoxFit.cover),
 
-                ),
+            backgroundColor: AppColors.modalBackground,
+
+            body: Container(
+              height: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/boy_drink.png",),
+                    fit: BoxFit.cover),
+
+              ),
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
                     const SizedBox(
