@@ -7,6 +7,7 @@ import 'package:wo/core/utils/snackBar.dart';
 import 'package:wo/cubits/dummy/dummy_cubit.dart';
 import 'package:wo/cubits/dummy/exercise/exercise_cubit.dart';
 import 'package:wo/cubits/dummy/exercise/exercise_state.dart';
+import 'package:wo/view/dummy/workout/widgets/capsul_widget.dart';
 
 import '../../../core/entities/exercise.dart';
 import '../../../core/utils/style.dart';
@@ -58,104 +59,130 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
         appBar: AppBar(
           title: Text(
             cubit.workout.name,
-            style: AppTextStyle.titleSmall,
+            style: AppTextStyle.titleSmallWhite,
           ),
           elevation: 0,
           centerTitle: true,
-          backgroundColor: AppColors.content,
+          backgroundColor: AppColors.primary,
         ),
         backgroundColor: AppColors.greenBackGround,
-        body: ListView.builder(
-            itemCount: cubit.state.exercise.length,
-            itemBuilder: (context, index) {
-              return Dismissible(
-                key: UniqueKey(),
-                confirmDismiss: (DismissDirection direction) async {
-                  return await showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text("Confirm"),
-                        content: const Text(
-                            "Are you sure you wish to delete this item?"),
-                        actions: <Widget>[
-                          ElevatedButton(
-                              onPressed: () async {
-                                await cubit.removeExercise(index);
-                                Navigator.of(context).pop(true);
-                              },
-                              child: const Text("DELETE")),
-                          ElevatedButton(
-                            onPressed: () => Navigator.of(context).pop(false),
-                            child: const Text("CANCEL"),
-                          ),
-                        ],
+        body: Container(
+          decoration: BoxDecoration(
+
+            image: DecorationImage(
+                image: AssetImage("assets/gantel.png",),
+                fit: BoxFit.cover),
+
+          ),
+          child: ListView.builder(
+              itemCount: cubit.state.exercise.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding:  EdgeInsets.all(MediaQuery.of(context).size.width / 30),
+                  child: Dismissible(
+                    key: UniqueKey(),
+                    confirmDismiss: (DismissDirection direction) async {
+                      return await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Confirm"),
+                            content: const Text(
+                                "Are you sure you wish to delete this item?"),
+                            actions: <Widget>[
+                              ElevatedButton(
+                                  onPressed: () async {
+                                    await cubit.removeExercise(index);
+                                    Navigator.of(context).pop(true);
+                                  },
+                                  child: const Text("DELETE")),
+                              ElevatedButton(
+                                onPressed: () => Navigator.of(context).pop(false),
+                                child: const Text("CANCEL"),
+                              ),
+                            ],
+                          );
+                        },
                       );
                     },
-                  );
-                },
-                onDismissed: (direction) async {
-                  await cubit.state.exercise.removeAt(index);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Exercise is deleted'),
+                    onDismissed: (direction) async {
+                      await cubit.state.exercise.removeAt(index);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Exercise is deleted'),
+                        ),
+                      );
+                    },
+                    background: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        height: size.height / 6,
+                        color: Colors.red,
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  );
-                },
-                background: Container(
-                  height: size.height * 0.08,
-                  color: Colors.red,
-                  child: Icon(
-                    Icons.delete,
-                    color: Colors.white,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const SizedBox(
-                          height: 10,
+                        Column(
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: size.width * 0.80,
+                              height: size.height / 6
+                              ,
+                              decoration: BoxDecoration(
+                                  color: AppColors.cGreen),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Wrap(
+                                  // crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                   Container(decoration : BoxDecoration(
+                                     color : Colors.white60 ,
+                                     borderRadius: BorderRadius.all(
+                                         Radius.circular(30.0) //                 <--- border radius here
+                                     ),
+                                   ),child: Text(cubit.state.exercise[index].name,style: TextStyle(fontSize: 22 ,color: Colors.white60),)),
+                                    Text(cubit.state.exercise[index].weight,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                    Text(cubit.state.exercise[index].reps,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                    Text(cubit.state.exercise[index].sets,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            )
+                          ],
                         ),
-                        Container(
-                          width: size.width * 0.80,
-                          height: size.height * 0.2,
-                          decoration: BoxDecoration(
-                              color: AppColors.exerciseBackground),
-                          child: Column(
-                            children: [
-                              Text(cubit.state.exercise[index].name),
-                              Text(cubit.state.exercise[index].weight),
-                              Text(cubit.state.exercise[index].reps),
-                              Text(cubit.state.exercise[index].sets),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        )
+                        Checkbox(
+                            value: cubit.state.exercise[index].isCompleted,
+                            onChanged: (toggle) {
+                              cubit.toggle(
+                                  Exercise(
+                                    name: cubit.state.exercise[index].name,
+                                    weight: cubit.state.exercise[index].weight,
+                                    reps: cubit.state.exercise[index].reps,
+                                    sets: cubit.state.exercise[index].sets,
+                                    id: cubit.state.exercise[index].id,
+                                    isCompleted: toggle!,
+                                  ),
+                                  index);
+                            }),
                       ],
                     ),
-                    Checkbox(
-                        value: cubit.state.exercise[index].isCompleted,
-                        onChanged: (toggle) {
-                          cubit.toggle(
-                              Exercise(
-                                name: cubit.state.exercise[index].name,
-                                weight: cubit.state.exercise[index].weight,
-                                reps: cubit.state.exercise[index].reps,
-                                sets: cubit.state.exercise[index].sets,
-                                id: cubit.state.exercise[index].id,
-                                isCompleted: toggle!,
-                              ),
-                              index);
-                        }),
-                  ],
-                ),
-              );
-            }),
+                  ),
+                );
+              }),
+        ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: AppColors.cGreen,
           onPressed: () async {
             final result = await showModal(context);
             if (result == null) {
@@ -164,7 +191,7 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
 
             cubit.addExercise(result);
           },
-          child: Icon(Icons.add_circle_outlined),
+          child: Icon(Icons.add_circle_outlined,color: Colors.white60,),
         ),
       ),
     );

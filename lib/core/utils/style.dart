@@ -20,6 +20,8 @@ abstract class AppColors{
 
   static const cRed  = Color.fromRGBO(136, 37, 31,1);
   static const cOcean  = Color.fromRGBO(36, 87, 110,0.5);
+  static const cYellow  = Color.fromRGBO(145, 138, 42,0.5);
+  static const cGreen  = Color.fromRGBO(44, 104, 64,0.5);
 
 
 }
@@ -29,6 +31,7 @@ abstract class AppTextStyle{
 
   static const defaultTextStyle = TextStyle(fontSize: 18.0,color: AppColors.primary,);
   static const titleSmall = TextStyle(fontSize: 24.0,color: AppColors.primary,fontWeight: FontWeight.w700);
+  static const titleSmallWhite = TextStyle(fontSize: 24.0,color: Colors.white60,fontWeight: FontWeight.w700);
   static const titleLarge = TextStyle(fontSize: 30.0,color: AppColors.primary,fontWeight: FontWeight.w600, letterSpacing: 1);
 
   static const facts = TextStyle(fontSize: 22.0,color: AppColors.primary,fontWeight: FontWeight.w400,letterSpacing: 1);
