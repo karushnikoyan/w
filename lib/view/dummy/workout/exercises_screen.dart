@@ -137,44 +137,121 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                               height: size.height / 6
                               ,
                               decoration: BoxDecoration(
-                                  color: AppColors.cGreen),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Wrap(
-                                  // crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                   Container(decoration : BoxDecoration(
-                                     color : Colors.white60 ,
-                                     borderRadius: BorderRadius.all(
-                                         Radius.circular(30.0) //                 <--- border radius here
-                                     ),
-                                   ),child: Text(cubit.state.exercise[index].name,style: TextStyle(fontSize: 22 ,color: Colors.white60),)),
-                                    Text(cubit.state.exercise[index].weight,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                    Text(cubit.state.exercise[index].reps,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                    Text(cubit.state.exercise[index].sets,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                  ],
+                                  color: AppColors.cOrange,
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(20.0)
                                 ),
+
+
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(00.0),
+                                      child: Wrap(
+                                        // crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                         Padding(
+                                           padding: const EdgeInsets.all(4.0),
+                                           child: Container(
+                                               decoration : BoxDecoration(
+                                             color : Colors.white30 ,
+                                             borderRadius: BorderRadius.all(
+                                                 Radius.circular(30.0)
+                                             ),
+                                           ),child: Padding(
+                                             padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                             child: Text(cubit.state.exercise[index].name,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                           )),
+                                         ),
+
+
+
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Container( decoration : BoxDecoration(
+                                              color : Colors.white30 ,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(30.0)
+                                              ),
+                                            ),child: Padding(
+                                              padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                              child: Text(cubit.state.exercise[index].weight,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                            )),
+                                          ),
+
+
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Container( decoration : BoxDecoration(
+                                              color : Colors.white30 ,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(30.0)
+                                              ),
+                                            ),child: Padding(
+                                              padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                              child: Text(cubit.state.exercise[index].reps,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                            )),
+                                          ),
+
+
+
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Container( decoration : BoxDecoration(
+                                              color : Colors.white30 ,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(30.0)
+                                              ),
+                                            ),child: Padding(
+                                              padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                              child: Text(cubit.state.exercise[index].sets,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                            )),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Checkbox(
+                                        value: cubit.state.exercise[index].isCompleted,
+                                        onChanged: (toggle) {
+                                          cubit.toggle(
+                                              Exercise(
+                                                name: cubit.state.exercise[index].name,
+                                                weight: cubit.state.exercise[index].weight,
+                                                reps: cubit.state.exercise[index].reps,
+                                                sets: cubit.state.exercise[index].sets,
+                                                id: cubit.state.exercise[index].id,
+                                                isCompleted: toggle!,
+                                              ),
+                                              index);
+                                        }),
+                                  ),
+                                ],
                               ),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            )
+
                           ],
                         ),
-                        Checkbox(
-                            value: cubit.state.exercise[index].isCompleted,
-                            onChanged: (toggle) {
-                              cubit.toggle(
-                                  Exercise(
-                                    name: cubit.state.exercise[index].name,
-                                    weight: cubit.state.exercise[index].weight,
-                                    reps: cubit.state.exercise[index].reps,
-                                    sets: cubit.state.exercise[index].sets,
-                                    id: cubit.state.exercise[index].id,
-                                    isCompleted: toggle!,
-                                  ),
-                                  index);
-                            }),
+                        // Checkbox(
+                        //     value: cubit.state.exercise[index].isCompleted,
+                        //     onChanged: (toggle) {
+                        //       cubit.toggle(
+                        //           Exercise(
+                        //             name: cubit.state.exercise[index].name,
+                        //             weight: cubit.state.exercise[index].weight,
+                        //             reps: cubit.state.exercise[index].reps,
+                        //             sets: cubit.state.exercise[index].sets,
+                        //             id: cubit.state.exercise[index].id,
+                        //             isCompleted: toggle!,
+                        //           ),
+                        //           index);
+                        //     }),
                       ],
                     ),
                   ),
