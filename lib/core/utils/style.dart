@@ -26,7 +26,8 @@ abstract class AppColors{
   static const cYellow  = Color.fromRGBO(145, 138, 42,0.5);
   static const cGreen  = Color.fromRGBO(44, 104, 64,0.5);
   // static const cOrange  = Color.fromRGBO(98, 53, 32,0.5);
-  static const cOrange  = Color.fromRGBO(179, 135, 103,0.3);
+  static const cOrange  = Color.fromRGBO(175, 147, 120,0.4);
+  static const cGray  = Color.fromRGBO(29, 14, 13,0.8);
 
 
 }
