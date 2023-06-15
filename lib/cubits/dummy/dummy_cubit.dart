@@ -49,17 +49,9 @@ class DummyScreenCubit extends Cubit<DummyScreenState> {
 
   removeWorkout(int id) async {
     await workoutBox.deleteAt(id);
-    List<Workout> workoutList = [];
-    for (int i = 0; i < workoutBox.values.length; i++) {
-      workoutList.add(
-        Workout(
-            name: (workoutBox.values.elementAt(i) as Workout).name,
-            id: i,
-            exercise: (workoutBox.values.elementAt(i) as Workout).exercise),
-      );
-    }
+
     await state.workoutList.removeAt(id);
-    emit(state.copyWith(workoutList: workoutList));
+    emit(state.copyWith(workoutList: [...state.workoutList]));
   }
 
   f() async {
