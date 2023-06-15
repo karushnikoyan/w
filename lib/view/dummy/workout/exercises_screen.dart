@@ -68,17 +68,18 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
         backgroundColor: AppColors.greenBackGround,
         body: Container(
           decoration: BoxDecoration(
-
             image: DecorationImage(
-                image: AssetImage("assets/gantel.png",),
+                image: AssetImage(
+                  "assets/gantel.png",
+                ),
                 fit: BoxFit.cover),
-
           ),
           child: ListView.builder(
               itemCount: cubit.state.exercise.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding:  EdgeInsets.all(MediaQuery.of(context).size.width / 30),
+                  padding:
+                      EdgeInsets.all(MediaQuery.of(context).size.width / 30),
                   child: Dismissible(
                     key: UniqueKey(),
                     confirmDismiss: (DismissDirection direction) async {
@@ -91,14 +92,20 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                                 "Are you sure you wish to delete this item?"),
                             actions: <Widget>[
                               ElevatedButton(
-                                  onPressed: () async {
-                                    await cubit.removeExercise(index);
-                                    Navigator.of(context).pop(true);
-                                  },
-                                  child: const Text("DELETE")),
-                              ElevatedButton(
-                                onPressed: () => Navigator.of(context).pop(false),
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
                                 child: const Text("CANCEL"),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.cancel),
+                              ),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  await cubit.removeExercise(index);
+                                  Navigator.of(context).pop(true);
+                                },
+                                child: const Text("DELETE"),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.apply),
                               ),
                             ],
                           );
@@ -134,24 +141,42 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                             ),
                             Container(
                               width: size.width * 0.80,
-                              height: size.height / 6
-                              ,
-                              decoration: BoxDecoration(
-                                  color: AppColors.cGreen),
+                              height: size.height / 6,
+                              decoration:
+                                  BoxDecoration(color: AppColors.cGreen),
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Wrap(
                                   // crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                   Container(decoration : BoxDecoration(
-                                     color : Colors.white60 ,
-                                     borderRadius: BorderRadius.all(
-                                         Radius.circular(30.0) //                 <--- border radius here
-                                     ),
-                                   ),child: Text(cubit.state.exercise[index].name,style: TextStyle(fontSize: 22 ,color: Colors.white60),)),
-                                    Text(cubit.state.exercise[index].weight,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                    Text(cubit.state.exercise[index].reps,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                    Text(cubit.state.exercise[index].sets,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                    Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white60,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(30.0) //
+                                              ),
+                                        ),
+                                        child: Text(
+                                          cubit.state.exercise[index].name,
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              color: Colors.white60),
+                                        )),
+                                    Text(
+                                      cubit.state.exercise[index].weight,
+                                      style: TextStyle(
+                                          fontSize: 22, color: Colors.white60),
+                                    ),
+                                    Text(
+                                      cubit.state.exercise[index].reps,
+                                      style: TextStyle(
+                                          fontSize: 22, color: Colors.white60),
+                                    ),
+                                    Text(
+                                      cubit.state.exercise[index].sets,
+                                      style: TextStyle(
+                                          fontSize: 22, color: Colors.white60),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -191,7 +216,10 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
 
             cubit.addExercise(result);
           },
-          child: Icon(Icons.add_circle_outlined,color: Colors.white60,),
+          child: Icon(
+            Icons.add_circle_outlined,
+            color: Colors.white60,
+          ),
         ),
       ),
     );
