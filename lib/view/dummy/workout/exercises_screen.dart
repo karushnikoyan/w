@@ -87,6 +87,8 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
+                            backgroundColor: AppColors.cOrange.withOpacity(0.7),
+
                             title: const Text("Confirm"),
                             content: const Text(
                                 "Are you sure you wish to delete this item?"),
@@ -148,71 +150,149 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                                 children: [
                                   Expanded(
                                     flex: 4,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(00.0),
-                                      child: Wrap(
-                                        // crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                         Padding(
+                                    child: Column(
+                                      children: [
+                                      Padding(
                                            padding: const EdgeInsets.all(4.0),
                                            child: Container(
                                                decoration : BoxDecoration(
-                                             color : Colors.white30 ,
+                                             // color : Colors.white30 ,
                                              borderRadius: BorderRadius.all(
                                                  Radius.circular(30.0)
                                              ),
                                            ),child: Padding(
                                              padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                             child: Text(cubit.state.exercise[index].name,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                             child: Text(cubit.state.exercise[index].name,style: TextStyle(fontSize: 22 ,fontWeight: FontWeight.bold,color: Colors.white60),),
                                            )),
                                          ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 20),
+                                          child: Container(height: 2,color: Colors.white30,),
+                                        ),
+                                        Row(
+                                          children: [
+
+                                                Padding(
+                                                  padding: const EdgeInsets.all(4.0),
+                                                  child: Container( decoration : BoxDecoration(
+                                                    // color : Colors.white30 ,
+                                                    borderRadius: BorderRadius.all(
+                                                        Radius.circular(30.0)
+                                                    ),
+                                                  ),child: Padding(
+                                                    padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                                    child: Text(
+                                                          "${cubit.state.exercise[index].weight} kg",style: TextStyle(fontSize: 34 ,fontWeight: FontWeight.bold,color: Colors.white60),),
+                                                  )),
+                                                ),
+                                            Container(height: 60 ,width: 2,color: Colors.white30,),
+
+                                            Column(
+                                              children: [
+                                                Padding(
+                                                        padding: const EdgeInsets.all(4.0),
+                                                        child: Container( decoration : BoxDecoration(
+                                                          // color : Colors.white30 ,
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(30.0)
+                                                          ),
+                                                        ),child: Padding(
+                                                          padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                                          child: Text(
+                                                                "${cubit.state.exercise[index].reps} reps",style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.white60),),
+                                                        )),
+                                                      ),
+
+                                                Container(width : 80,height: 2,color: Colors.white30,),
 
 
 
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Container( decoration : BoxDecoration(
-                                              color : Colors.white30 ,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30.0)
-                                              ),
-                                            ),child: Padding(
-                                              padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                              child: Text(cubit.state.exercise[index].weight,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                            )),
-                                          ),
 
+                                                Padding(
+                                                        padding: const EdgeInsets.all(4.0),
+                                                        child: Container( decoration : BoxDecoration(
+                                                          // color : Colors.white30 ,
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(30.0)
+                                                          ),
+                                                        ),child: Padding(
+                                                          padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                                          child: Text(
+                                                            "${cubit.state.exercise[index].sets} sets",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold ,color: Colors.white60),),
+                                                        )),
+                                                      ),
+                                              ],
+                                            )
 
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Container( decoration : BoxDecoration(
-                                              color : Colors.white30 ,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30.0)
-                                              ),
-                                            ),child: Padding(
-                                              padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                              child: Text(cubit.state.exercise[index].reps,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                            )),
-                                          ),
-
-
-
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Container( decoration : BoxDecoration(
-                                              color : Colors.white30 ,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30.0)
-                                              ),
-                                            ),child: Padding(
-                                              padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                              child: Text(cubit.state.exercise[index].sets,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                            )),
-                                          ),
-                                        ],
-                                      ),
+                                          ],
+                                        )
+                                      ],
                                     ),
+                                    // child: Wrap(
+                                    //   // crossAxisAlignment: CrossAxisAlignment.start,
+                                    //   children: [
+                                    //    Padding(
+                                    //      padding: const EdgeInsets.all(4.0),
+                                    //      child: Container(
+                                    //          decoration : BoxDecoration(
+                                    //        color : Colors.white30 ,
+                                    //        borderRadius: BorderRadius.all(
+                                    //            Radius.circular(30.0)
+                                    //        ),
+                                    //      ),child: Padding(
+                                    //        padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                    //        child: Text(cubit.state.exercise[index].name,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                    //      )),
+                                    //    ),
+                                    //
+                                    //
+                                    //
+                                    //     Padding(
+                                    //       padding: const EdgeInsets.all(4.0),
+                                    //       child: Container( decoration : BoxDecoration(
+                                    //         color : Colors.white30 ,
+                                    //         borderRadius: BorderRadius.all(
+                                    //             Radius.circular(30.0)
+                                    //         ),
+                                    //       ),child: Padding(
+                                    //         padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                    //         child: Text(
+                                    //               "${cubit.state.exercise[index].weight} kg",style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                    //       )),
+                                    //     ),
+                                    //
+                                    //
+                                    //     Padding(
+                                    //       padding: const EdgeInsets.all(4.0),
+                                    //       child: Container( decoration : BoxDecoration(
+                                    //         color : Colors.white30 ,
+                                    //         borderRadius: BorderRadius.all(
+                                    //             Radius.circular(30.0)
+                                    //         ),
+                                    //       ),child: Padding(
+                                    //         padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                    //         child: Text(
+                                    //               "${cubit.state.exercise[index].reps} reps",style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                    //       )),
+                                    //     ),
+                                    //
+                                    //
+                                    //
+                                    //     Padding(
+                                    //       padding: const EdgeInsets.all(4.0),
+                                    //       child: Container( decoration : BoxDecoration(
+                                    //         color : Colors.white30 ,
+                                    //         borderRadius: BorderRadius.all(
+                                    //             Radius.circular(30.0)
+                                    //         ),
+                                    //       ),child: Padding(
+                                    //         padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                    //         child: Text(
+                                    //           "${cubit.state.exercise[index].sets} sets",style: TextStyle(fontSize: 22 ,color: Colors.white60),),
+                                    //       )),
+                                    //     ),
+                                    //   ],
+                                    // ),
                                   ),
                                   Expanded(
                                     flex: 1,

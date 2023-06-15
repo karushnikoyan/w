@@ -14,8 +14,9 @@ abstract class AppColors{
   static const snackBarBackground = Color(0x452F2D2D);
   static const workoutButton = Color(0xBE7394FF);
   static const exerciseBackground = Color(0x56BF82E7);
-  static const cancel = Colors.redAccent;
-  static const apply = Colors.greenAccent;
+
+  static const cancel = Color.fromRGBO(209, 76, 60,1);
+  static const apply = Color.fromRGBO(127, 251, 100,1);
   // static const exerciseBackgroundDark = Color(0x74B758FC);
 
 
