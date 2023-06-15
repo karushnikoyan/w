@@ -17,6 +17,15 @@ class ExerciseScreen extends StatelessWidget {
       {Key? key, required this.exercise, required this.workout})
       : super(key: key);
 
+
+
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ExerciseCubit>(
