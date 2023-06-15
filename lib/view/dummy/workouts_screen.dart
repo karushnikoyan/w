@@ -228,16 +228,16 @@ class DisplayWorkoutScreen extends StatelessWidget {
               ],
             ),
             backgroundColor: AppColors.modalBackground,
-            body: SingleChildScrollView(
-              child: Container(
-                height: 430,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                        "assets/women.png",
-                      ),
-                      fit: BoxFit.cover),
-                ),
+            body: Container(
+              height: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(
+                      "assets/women.png",
+                    ),
+                    fit: BoxFit.cover),
+              ),
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
                     SizedBox(
