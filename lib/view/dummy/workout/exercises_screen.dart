@@ -259,7 +259,7 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
               }),
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: AppColors.cGreen,
+          backgroundColor: AppColors.cOrange,
           onPressed: () async {
             final result = await showModal(context);
             if (result == null) {
@@ -322,53 +322,73 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
             ),
             backgroundColor: AppColors.modalBackground,
             body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  TextField(
-                    controller: nameController,
-                    decoration: InputDecoration(
-                        hintText: "Title",
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2.0),
-                            borderRadius: BorderRadius.circular(10.0))),
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  TextField(
-                    controller: weightController,
-                    decoration: InputDecoration(
-                        hintText: "Weight",
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2.0),
-                            borderRadius: BorderRadius.circular(10.0))),
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  TextField(
-                    controller: repsController,
-                    decoration: InputDecoration(
-                        hintText: "Reps",
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2.0),
-                            borderRadius: BorderRadius.circular(10.0))),
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  TextField(
-                    controller: setsController,
-                    decoration: InputDecoration(
-                        hintText: "Sets",
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2.0),
-                            borderRadius: BorderRadius.circular(10.0))),
-                  ),
-                ],
+              child: Container(
+                height: 430,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/boy_drink.png",),
+                      fit: BoxFit.cover),
+
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    TextField(
+                      controller: nameController,
+                          style: TextStyle(color: Colors.white60),
+                      decoration: InputDecoration(
+                          fillColor: AppColors.cOrange,filled:true,
+                          hintText: "Title",
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0))),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    TextField(
+                      controller: weightController,
+                      style: TextStyle(color: Colors.white60),
+
+                      decoration: InputDecoration(
+                          fillColor: AppColors.cOrange,filled:true,
+                          hintText: "Weight",
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0))),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    TextField(
+                      controller: repsController,
+                      style: TextStyle(color: Colors.white60),
+
+                      decoration: InputDecoration(
+                          fillColor: AppColors.cOrange,filled:true,
+                          hintText: "Reps",
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0))),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    TextField(
+                      controller: setsController,
+                      style: TextStyle(color: Colors.white60),
+
+                      decoration: InputDecoration(
+                          fillColor: AppColors.cOrange,filled:true,
+                          hintText: "Sets",
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0))),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
