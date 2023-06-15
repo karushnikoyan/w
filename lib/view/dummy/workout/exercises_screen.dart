@@ -68,17 +68,18 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
         backgroundColor: AppColors.greenBackGround,
         body: Container(
           decoration: BoxDecoration(
-
             image: DecorationImage(
-                image: AssetImage("assets/gantel.png",),
+                image: AssetImage(
+                  "assets/gantel.png",
+                ),
                 fit: BoxFit.cover),
-
           ),
           child: ListView.builder(
               itemCount: cubit.state.exercise.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding:  EdgeInsets.all(MediaQuery.of(context).size.width / 30),
+                  padding:
+                      EdgeInsets.all(MediaQuery.of(context).size.width / 30),
                   child: Dismissible(
                     key: UniqueKey(),
                     confirmDismiss: (DismissDirection direction) async {
@@ -91,37 +92,35 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                                 "Are you sure you wish to delete this item?"),
                             actions: <Widget>[
                               ElevatedButton(
-                                  onPressed: () async {
-                                    await cubit.removeExercise(index);
-                                    Navigator.of(context).pop(true);
-                                  },
-                                  child: const Text("DELETE")),
-                              ElevatedButton(
-                                onPressed: () => Navigator.of(context).pop(false),
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
                                 child: const Text("CANCEL"),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.cancel),
+                              ),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  await cubit.removeExercise(index);
+                                  Navigator.of(context).pop(true);
+                                },
+                                child: const Text("DELETE"),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.apply),
                               ),
                             ],
                           );
                         },
                       );
                     },
-                    onDismissed: (direction) async {
-                      await cubit.state.exercise.removeAt(index);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Exercise is deleted'),
-                        ),
-                      );
-                    },
-                    background: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        height: size.height / 6,
+
+                    direction: DismissDirection.endToStart,
+
+                    background: Align(
+                      alignment: Alignment.centerRight,
+                      child: Icon(
+                        Icons.delete,
                         color: Colors.red,
-                        child: Icon(
-                          Icons.delete,
-                          color: Colors.white,
-                        ),
+                        size: 30,
                       ),
                     ),
                     child: Row(
@@ -269,7 +268,10 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
 
             cubit.addExercise(result);
           },
-          child: Icon(Icons.add_circle_outlined,color: Colors.white60,),
+          child: Icon(
+            Icons.add_circle_outlined,
+            color: Colors.white60,
+          ),
         ),
       ),
     );
@@ -285,6 +287,7 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
           TextEditingController setsController = TextEditingController();
           return Scaffold(
             resizeToAvoidBottomInset: true,
+
             appBar: AppBar(
               backgroundColor: AppColors.primary,
               centerTitle: true,
@@ -305,6 +308,21 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                       showSnackBar(context, Colors.red, "Enter title");
                       return;
                     }
+                    double? wg = double.tryParse(weightController.text);
+                    int? rps = int.tryParse(repsController.text);
+                    int? sts = int.tryParse(setsController.text);
+                    if (wg == null && (weightController.text != "")) {
+                      showSnackBar(context, Colors.red,"Not valid weight value");
+                      return;
+                    }
+                    if (rps == null && (repsController.text != "")) {
+                      showSnackBar(context, Colors.red,"Not valid reps value");
+                      return;
+                    }
+                    if (sts == null && (setsController.text != "")) {
+                      showSnackBar(context, Colors.red,"Not valid sets value");
+                      return;
+                    }
 
                     var exercise = Exercise(
                         name: nameController.text,
@@ -321,38 +339,40 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                 )
               ],
             ),
+
             backgroundColor: AppColors.modalBackground,
-            body: SingleChildScrollView(
-              child: Container(
-                height: 430,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/boy_drink.png",),
-                      fit: BoxFit.cover),
 
-                  ),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      TextField(
-                        controller: nameController,
-                            style: TextStyle(color: Colors.white60),
-                        decoration: InputDecoration(
-                            fillColor: AppColors.cOrange,filled:true,
-                            hintText: "Title",
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(width: 2.0),
-                                borderRadius: BorderRadius.circular(10.0))),
-                      ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      TextField(
-                        controller: weightController,
-                        style: TextStyle(color: Colors.white60),
 
+            body: Container(
+              height: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/boy_drink.png",),
+                    fit: BoxFit.cover),
+
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    TextField(
+                      controller: nameController,
+                          style: TextStyle(color: Colors.white60),
+                      decoration: InputDecoration(
+                          fillColor: AppColors.cOrange,filled:true,
+                          hintText: "Title",
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0))),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    TextField(
+                      controller: weightController,
+                      style: TextStyle(color: Colors.white60),
                         decoration: InputDecoration(
                             fillColor: AppColors.cOrange,filled:true,
                             hintText: "Weight",

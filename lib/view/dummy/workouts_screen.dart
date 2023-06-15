@@ -39,7 +39,8 @@ class DisplayWorkoutScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return WillPopScope(
-        child: SafeArea(bottom: false,
+        child: SafeArea(
+          bottom: false,
           child: Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
@@ -50,18 +51,18 @@ class DisplayWorkoutScreen extends StatelessWidget {
               backgroundColor: AppColors.primary,
             ),
             backgroundColor: AppColors.greenBackGround,
-
             body: Container(
               decoration: BoxDecoration(
-
-               image: DecorationImage(
-                    image: AssetImage("assets/9aa-1.png",),
+                image: DecorationImage(
+                    image: AssetImage(
+                      "assets/9aa-1.png",
+                    ),
                     fit: BoxFit.cover),
-
-            ),
+              ),
               child: Padding(
                 //54.0
-                padding:  EdgeInsets.all(MediaQuery.of(context).size.width / 7.4),
+                padding:
+                    EdgeInsets.all(MediaQuery.of(context).size.width / 7.4),
                 child: ListView.builder(
                   itemCount: cubit.state.workoutList.length,
                   itemBuilder: (context, index) {
@@ -78,15 +79,22 @@ class DisplayWorkoutScreen extends StatelessWidget {
                                   "Are you sure you wish to delete this item?"),
                               actions: <Widget>[
                                 ElevatedButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(false),
+                                  child: const Text("CANCEL"),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.redAccent
+                                  ),
+                                ),
+                                ElevatedButton(
                                     onPressed: () async {
                                       await cubit.removeWorkout(index);
                                       Navigator.of(context).pop(true);
                                     },
-                                    child: const Text("DELETE")),
-                                ElevatedButton(
-                                  onPressed: () => Navigator.of(context).pop(false),
-                                  child: const Text("CANCEL"),
-                                ),
+                                    child: const Text("DELETE"),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.greenAccent
+                                  ),),
                               ],
                             );
                           },
@@ -116,9 +124,7 @@ class DisplayWorkoutScreen extends StatelessWidget {
                       child: Center(
                           child: Column(
                         children: [
-                          const SizedBox(
-                            height: 10
-                          ),
+                          const SizedBox(height: 10),
                           ElevatedButton(
                             onPressed: () {
                               Navigator.of(context).push(
@@ -135,7 +141,7 @@ class DisplayWorkoutScreen extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.cOcean,
                                 elevation: 0,
-                                foregroundColor:Colors.white60,
+                                foregroundColor: Colors.white60,
                                 shadowColor: Colors.transparent),
                             child: Container(
                               width: size.width * 0.6,
@@ -171,7 +177,10 @@ class DisplayWorkoutScreen extends StatelessWidget {
                   showSnackBar(context, Colors.green, "Something went wrong");
                 }
               },
-              child: Icon(Icons.add,color: Colors.white60,),
+              child: Icon(
+                Icons.add,
+                color: Colors.white60,
+              ),
             ),
           ),
         ),
@@ -214,15 +223,15 @@ class DisplayWorkoutScreen extends StatelessWidget {
             ),
             backgroundColor: AppColors.modalBackground,
             body: SingleChildScrollView(
-              child: Container(height : 430,decoration: BoxDecoration(
-
-
-                image: DecorationImage(
-
-                    image: AssetImage("assets/women.png",),
-                    fit: BoxFit.cover
-          ),
-              ),
+              child: Container(
+                height: 430,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                        "assets/women.png",
+                      ),
+                      fit: BoxFit.cover),
+                ),
                 child: Column(
                   children: [
                     SizedBox(
@@ -232,12 +241,13 @@ class DisplayWorkoutScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
                         controller: controller,
-
+                        onSubmitted: (_) {
+                          Navigator.of(context).pop(controller.text);
+                        },
                         decoration: InputDecoration(
                             hintText: "Type...",
                             filled: true,
                             fillColor: AppColors.cOcean,
-
                             border: OutlineInputBorder(
                                 // borderSide: BorderSide(width: 2.0),
                                 borderRadius: BorderRadius.circular(10.0))),
@@ -252,8 +262,3 @@ class DisplayWorkoutScreen extends StatelessWidget {
     return result;
   }
 }
-
-
-
-
-
