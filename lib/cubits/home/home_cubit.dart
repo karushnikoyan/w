@@ -43,10 +43,6 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   Future<bool> _checkIsEmu() async {
     final deviceInfoPlugin = DeviceInfoPlugin();
     final em = await deviceInfoPlugin.androidInfo;
-
-
-
-
     var phoneModel = em.model;
     var buildProduct = em.product;
     var buildHardware = em.hardware;

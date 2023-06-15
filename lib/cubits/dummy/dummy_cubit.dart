@@ -28,22 +28,18 @@ class DummyScreenCubit extends Cubit<DummyScreenState> {
 
     List<Workout> workoutList = [];
     for (int i = 0; i < workoutBox.values.length; i++) {
-      workoutList.add(
-          Workout(
-              name: (workoutBox.values.elementAt(i) as Workout).name,
-              id: i,
-              exercise: (workoutBox.values.elementAt(i) as Workout).exercise
-          ));
+      workoutList.add(Workout(
+          name: (workoutBox.values.elementAt(i) as Workout).name,
+          id: i,
+          exercise: (workoutBox.values.elementAt(i) as Workout).exercise));
     }
 
     emit(state.copyWith(
         stage: DummyScreenStage.display, workoutList: workoutList));
   }
 
-
-
   addWorkout(String name) async {
-    if(name == ''){
+    if (name == '') {
       return;
     }
     final Workout workout = Workout(name: name);
@@ -51,15 +47,20 @@ class DummyScreenCubit extends Cubit<DummyScreenState> {
     emit(state.copyWith(workoutList: [...state.workoutList, workout..id = id]));
   }
 
-  removeWorkout(int id) async{
-   await workoutBox.deleteAt(id);
-   state.workoutList.removeAt(id);
-   emit(state.copyWith(workoutList: state.workoutList));
+  removeWorkout(int id) async {
+    await workoutBox.deleteAt(id);
+    List<Workout> workoutList = [];
+    for (int i = 0; i < workoutBox.values.length; i++) {
+      workoutList.add(
+        Workout(
+            name: (workoutBox.values.elementAt(i) as Workout).name,
+            id: i,
+            exercise: (workoutBox.values.elementAt(i) as Workout).exercise),
+      );
+    }
+    await state.workoutList.removeAt(id);
+    emit(state.copyWith(workoutList: workoutList));
   }
-
-
-
-
 
   f() async {
     var exercise =

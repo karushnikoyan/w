@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:wo/core/entities/workout.dart';
+import 'package:wo/core/utils/app_consts.dart';
 import 'package:wo/core/utils/snackBar.dart';
 import 'package:wo/cubits/dummy/dummy_cubit.dart';
 import 'package:wo/cubits/dummy/exercise/exercise_cubit.dart';
@@ -17,20 +19,10 @@ class ExerciseScreen extends StatelessWidget {
       {Key? key, required this.exercise, required this.workout})
       : super(key: key);
 
-
-
-
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ExerciseCubit>(
-        create: (_) =>
-            ExerciseCubit(workout: workout),
+        create: (_) => ExerciseCubit(workout: workout),
         child: BlocBuilder<ExerciseCubit, ExerciseState>(
           builder: (context, state) {
             switch (state.stage) {
@@ -46,13 +38,21 @@ class ExerciseScreen extends StatelessWidget {
   }
 }
 
-class ExerciseDisplayScreen extends StatelessWidget {
+class ExerciseDisplayScreen extends StatefulWidget {
   const ExerciseDisplayScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ExerciseDisplayScreen> createState() => _ExerciseDisplayScreenState();
+}
+
+class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
+  bool checkBoxValue = false;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final cubit = context.read<ExerciseCubit>();
+    final cubit = context.watch<ExerciseCubit>();
+    cubit.load();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -68,41 +68,99 @@ class ExerciseDisplayScreen extends StatelessWidget {
         body: ListView.builder(
             itemCount: cubit.state.exercise.length,
             itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  const SizedBox(
-                    height: 10,
+              return Dismissible(
+                key: UniqueKey(),
+                confirmDismiss: (DismissDirection direction) async {
+                  return await showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Confirm"),
+                        content: const Text(
+                            "Are you sure you wish to delete this item?"),
+                        actions: <Widget>[
+                          ElevatedButton(
+                              onPressed: () async {
+                                await cubit.removeExercise(index);
+                                Navigator.of(context).pop(true);
+                              },
+                              child: const Text("DELETE")),
+                          ElevatedButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: const Text("CANCEL"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                onDismissed: (direction) async {
+                  await cubit.state.exercise.removeAt(index);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Exercise is deleted'),
+                    ),
+                  );
+                },
+                background: Container(
+                  height: size.height * 0.08,
+                  color: Colors.red,
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.white,
                   ),
-                  Container(
-                    width: size.width,
-                    height: size.height * 0.2,
-                    decoration:
-                        BoxDecoration(color: AppColors.exerciseBackground),
-                    child: Column(
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
                       children: [
-                        Text(cubit.state.exercise[index].name),
-                        Text(cubit.state.exercise[index].weight),
-                        Text(cubit.state.exercise[index].reps),
-                        Text(cubit.state.exercise[index].sets),
-
-
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: size.width * 0.80,
+                          height: size.height * 0.2,
+                          decoration: BoxDecoration(
+                              color: AppColors.exerciseBackground),
+                          child: Column(
+                            children: [
+                              Text(cubit.state.exercise[index].name),
+                              Text(cubit.state.exercise[index].weight),
+                              Text(cubit.state.exercise[index].reps),
+                              Text(cubit.state.exercise[index].sets),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        )
                       ],
                     ),
-
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  )
-                ],
+                    Checkbox(
+                        value: cubit.state.exercise[index].isCompleted,
+                        onChanged: (toggle) {
+                          cubit.toggle(
+                              Exercise(
+                                name: cubit.state.exercise[index].name,
+                                weight: cubit.state.exercise[index].weight,
+                                reps: cubit.state.exercise[index].reps,
+                                sets: cubit.state.exercise[index].sets,
+                                id: cubit.state.exercise[index].id,
+                                isCompleted: toggle!,
+                              ),
+                              index);
+                        }),
+                  ],
+                ),
               );
             }),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             final result = await showModal(context);
-            if (result == null){
+            if (result == null) {
               return;
             }
-
 
             cubit.addExercise(result);
           },
@@ -138,17 +196,16 @@ class ExerciseDisplayScreen extends StatelessWidget {
               actions: [
                 IconButton(
                   onPressed: () {
-                    if(nameController.text == ''){
+                    if (nameController.text == '') {
                       showSnackBar(context, Colors.red, "Enter title");
                       return;
                     }
 
-                      var exercise = Exercise(
-                          name: nameController.text,
-                          weight: weightController.text,
-                          reps: repsController.text,
-                          sets: setsController.text);
-
+                    var exercise = Exercise(
+                        name: nameController.text,
+                        weight: weightController.text,
+                        reps: repsController.text,
+                        sets: setsController.text);
 
                     Navigator.of(context).pop(exercise);
                   },
@@ -212,7 +269,5 @@ class ExerciseDisplayScreen extends StatelessWidget {
             ),
           );
         });
-
-
   }
 }

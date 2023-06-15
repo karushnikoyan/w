@@ -17,6 +17,11 @@ abstract class AppColors{
   // static const exerciseBackgroundDark = Color(0x74B758FC);
 
 
+
+  static const cRed  = Color.fromRGBO(136, 37, 31,1);
+  static const cOcean  = Color.fromRGBO(36, 87, 110,0.5);
+
+
 }
 
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wo/core/entities/workout.dart';
 import 'package:wo/view/dummy/workout/exercises_screen.dart';
 
 import '../../core/utils/snackBar.dart';
@@ -38,56 +39,127 @@ class DisplayWorkoutScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return WillPopScope(
-        child: SafeArea(
+        child: SafeArea(bottom: false,
           child: Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
               title: Text(
-                "Football Facts",
+                "Workout",
               ),
               centerTitle: true,
               backgroundColor: AppColors.primary,
             ),
             backgroundColor: AppColors.greenBackGround,
-            body: ListView.builder(
-              itemCount: cubit.state.workoutList.length,
-              itemBuilder: (context, index) {
-                return Center(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 10,),
-                      ElevatedButton(
-                        onPressed: (){
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context){
-                              return ExerciseScreen(
-                                  workout: cubit.state.workoutList[index],
-                                  exercise: cubit.state.workoutList[index].exercise?.toList() ?? []);
-                            })
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.workoutButton,
-                          elevation: 0,
-                          foregroundColor: Colors.white,
-                          shadowColor: Colors.transparent
-                        ),
-                        child: Container(
-                          width: size.width * 0.7,
-                          height: size.height * 0.08,
 
-                          child: Center(
-                            child: Text(cubit.state.workoutList[index].name,overflow: TextOverflow.ellipsis,),
+            body: Container(
+              decoration: BoxDecoration(
+
+               image: DecorationImage(
+                    image: AssetImage("assets/9aa-1.png",),
+                    fit: BoxFit.cover),
+
+            ),
+              child: Padding(
+                //54.0
+                padding:  EdgeInsets.all(MediaQuery.of(context).size.width / 7.4),
+                child: ListView.builder(
+                  itemCount: cubit.state.workoutList.length,
+                  itemBuilder: (context, index) {
+                    Workout item = cubit.state.workoutList[index];
+                    return Dismissible(
+                      key: UniqueKey(),
+                      confirmDismiss: (DismissDirection direction) async {
+                        return await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Confirm"),
+                              content: const Text(
+                                  "Are you sure you wish to delete this item?"),
+                              actions: <Widget>[
+                                ElevatedButton(
+                                    onPressed: () async {
+                                      await cubit.removeWorkout(index);
+                                      Navigator.of(context).pop(true);
+                                    },
+                                    child: const Text("DELETE")),
+                                ElevatedButton(
+                                  onPressed: () => Navigator.of(context).pop(false),
+                                  child: const Text("CANCEL"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      onDismissed: (direction) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('${item.name} is deleted'),
+                          ),
+                        );
+                      },
+                      background: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Expanded(
+                          child: Container(
+                            // width:  40,
+                            // size.height * 0.20,
+                            color: AppColors.cRed,
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10.0,)
-                    ],
-                  )
-                );
-              },
+                      child: Center(
+                          child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 10
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context) {
+                                  return ExerciseScreen(
+                                      workout: cubit.state.workoutList[index],
+                                      exercise: cubit
+                                              .state.workoutList[index].exercise
+                                              ?.toList() ??
+                                          []);
+                                }),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.cOcean,
+                                elevation: 0,
+                                foregroundColor:Colors.white60,
+                                shadowColor: Colors.transparent),
+                            child: Container(
+                              width: size.width * 0.6,
+                              height: size.height * 0.06,
+                              child: Center(
+                                child: Text(
+                                  cubit.state.workoutList[index].name,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          )
+                        ],
+                      )),
+                    );
+                  },
+                ),
+              ),
             ),
             floatingActionButton: FloatingActionButton(
+              backgroundColor: AppColors.cOcean,
               onPressed: () async {
                 final result = await showModal(context);
                 if (result == null) {
@@ -99,7 +171,7 @@ class DisplayWorkoutScreen extends StatelessWidget {
                   showSnackBar(context, Colors.green, "Something went wrong");
                 }
               },
-              child: Icon(Icons.add),
+              child: Icon(Icons.add,color: Colors.white60,),
             ),
           ),
         ),
@@ -130,31 +202,49 @@ class DisplayWorkoutScreen extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(controller.text);
-                    },
-                    icon: Icon(
-                      Icons.done_outline,
-                      color: Colors.green,
-                    ),)
+                  onPressed: () {
+                    Navigator.of(context).pop(controller.text);
+                  },
+                  icon: Icon(
+                    Icons.done_outline,
+                    color: Colors.green,
+                  ),
+                )
               ],
             ),
             backgroundColor: AppColors.modalBackground,
             body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  TextField(
-                    controller: controller,
-                    decoration: InputDecoration(
-                        hintText: "Type...",
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2.0),
-                            borderRadius: BorderRadius.circular(10.0))),
-                  )
-                ],
+              child: Container(height : 430,decoration: BoxDecoration(
+
+
+                image: DecorationImage(
+
+                    image: AssetImage("assets/women.png",),
+                    fit: BoxFit.cover
+          ),
+              ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: controller,
+
+                        decoration: InputDecoration(
+                            hintText: "Type...",
+                            filled: true,
+                            fillColor: AppColors.cOcean,
+
+                            border: OutlineInputBorder(
+                                // borderSide: BorderSide(width: 2.0),
+                                borderRadius: BorderRadius.circular(10.0))),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           );
@@ -162,3 +252,8 @@ class DisplayWorkoutScreen extends StatelessWidget {
     return result;
   }
 }
+
+
+
+
+
