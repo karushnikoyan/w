@@ -400,18 +400,17 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                         controller: setsController,
                         style: TextStyle(color: Colors.white60),
 
-                        decoration: InputDecoration(
-                            fillColor: AppColors.cOrange,filled:true,
-                            hintText: "Sets",
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(width: 2.0),
-                                borderRadius: BorderRadius.circular(10.0))),
-                      ),
-                    ],
-                  ),
+                      decoration: InputDecoration(
+                          fillColor: AppColors.cOrange,filled:true,
+                          hintText: "Sets",
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0))),
+                    ),
+                  ],
                 ),
               ),
-          );
+            );
         });
   }
 }
