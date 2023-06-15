@@ -105,25 +105,13 @@ class DisplayWorkoutScreen extends StatelessWidget {
                             },
                           );
                         },
-                        onDismissed: (direction) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('${item.name} is deleted'),
-                            ),
-                          );
-                        },
-                        background: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Expanded(
-                            child: Container(
-                              // width:  40,
-                              // size.height * 0.20,
-                              color: AppColors.cRed,
-                              child: Icon(
-                                Icons.delete,
-                                color: Colors.white,
-                              ),
-                            ),
+                        direction: DismissDirection.endToStart,
+                        background: Align(
+                          alignment: Alignment.centerRight,
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                            size: 30,
                           ),
                         ),
                         child: Center(
