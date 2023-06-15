@@ -120,17 +120,17 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                         ),
                       );
                     },
-                    background: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        height: size.height / 6,
+                    direction: DismissDirection.endToStart,
+
+                    background: Align(
+                      alignment: Alignment.centerRight,
+                      child: Icon(
+                        Icons.delete,
                         color: Colors.red,
-                        child: Icon(
-                          Icons.delete,
-                          color: Colors.white,
-                        ),
+                        size: 30,
                       ),
                     ),
+
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -253,6 +253,21 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                   onPressed: () {
                     if (nameController.text == '') {
                       showSnackBar(context, Colors.red, "Enter title");
+                      return;
+                    }
+                    double? wg = double.tryParse(weightController.text);
+                    int? rps = int.tryParse(repsController.text);
+                    int? sts = int.tryParse(setsController.text);
+                    if (wg == null && (weightController.text != "")) {
+                      showSnackBar(context, Colors.red,"Not valid weight value");
+                      return;
+                    }
+                    if (rps == null && (repsController.text != "")) {
+                      showSnackBar(context, Colors.red,"Not valid reps value");
+                      return;
+                    }
+                    if (sts == null && (setsController.text != "")) {
+                      showSnackBar(context, Colors.red,"Not valid sets value");
                       return;
                     }
 
