@@ -43,6 +43,10 @@ abstract class AppTextStyle{
 
   static const facts = TextStyle(fontSize: 22.0,color: AppColors.primary,fontWeight: FontWeight.w400,letterSpacing: 1);
 
+
+
+  static const itemTextStyle = TextStyle(fontSize: 22 ,fontWeight: FontWeight.bold,color: Colors.white60);
+
 }
 
 abstract class AppTheme{

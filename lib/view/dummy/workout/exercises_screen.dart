@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:wo/core/entities/workout.dart';
-import 'package:wo/core/utils/app_consts.dart';
 import 'package:wo/core/utils/snackBar.dart';
-import 'package:wo/cubits/dummy/dummy_cubit.dart';
 import 'package:wo/cubits/dummy/exercise/exercise_cubit.dart';
 import 'package:wo/cubits/dummy/exercise/exercise_state.dart';
-import 'package:wo/view/dummy/workout/widgets/capsul_widget.dart';
-
+import 'package:wo/view/dummy/workout/widgets/text_field_custom.dart';
 import '../../../core/entities/exercise.dart';
 import '../../../core/utils/style.dart';
 
@@ -23,19 +19,20 @@ class ExerciseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ExerciseCubit>(
-        create: (_) => ExerciseCubit(workout: workout),
-        child: BlocBuilder<ExerciseCubit, ExerciseState>(
-          builder: (context, state) {
-            switch (state.stage) {
-              case ExerciseStateStage.display:
-                return ExerciseDisplayScreen();
-              case ExerciseStateStage.loading:
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-            }
-          },
-        ));
+      create: (_) => ExerciseCubit(workout: workout),
+      child: BlocBuilder<ExerciseCubit, ExerciseState>(
+        builder: (context, state) {
+          switch (state.stage) {
+            case ExerciseStateStage.display:
+              return ExerciseDisplayScreen();
+            case ExerciseStateStage.loading:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+          }
+        },
+      ),
+    );
   }
 }
 
@@ -88,7 +85,6 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             backgroundColor: AppColors.cOrange.withOpacity(0.7),
-
                             title: const Text("Confirm"),
                             content: const Text(
                                 "Are you sure you wish to delete this item?"),
@@ -114,9 +110,7 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                         },
                       );
                     },
-
                     direction: DismissDirection.endToStart,
-
                     background: Align(
                       alignment: Alignment.centerRight,
                       child: Icon(
@@ -130,183 +124,172 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                       children: [
                         Column(
                           children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
+                            const SizedBox(height: 10),
                             Container(
                               width: size.width * 0.80,
-                              height: size.height / 6
-                              ,
+                              height: size.height / 6,
                               decoration: BoxDecoration(
-                                  color: AppColors.cOrange,
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(20.0)
-                                ),
-
-
+                                color: AppColors.cOrange,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0)),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Expanded(
                                     flex: 4,
                                     child: Column(
                                       children: [
-                                      Padding(
-                                           padding: const EdgeInsets.all(4.0),
-                                           child: Container(
-                                               decoration : BoxDecoration(
-                                             // color : Colors.white30 ,
-                                             borderRadius: BorderRadius.all(
-                                                 Radius.circular(30.0)
-                                             ),
-                                           ),child: Padding(
-                                             padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                             child: Text(cubit.state.exercise[index].name,style: TextStyle(fontSize: 22 ,fontWeight: FontWeight.bold,color: Colors.white60),),
-                                           )),
-                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.only(left: 20),
-                                          child: Container(height: 2,color: Colors.white30,),
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                // color : Colors.white30 ,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(30.0)),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10,
+                                                    right: 10,
+                                                    top: 4,
+                                                    bottom: 4),
+                                                child: Text(
+                                                    cubit.state.exercise[index]
+                                                        .name,
+                                                    style: AppTextStyle
+                                                        .itemTextStyle),
+                                              )),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 20),
+                                          child: Container(
+                                            height: 2,
+                                            color: Colors.white30,
+                                          ),
                                         ),
                                         Row(
                                           children: [
-
-                                                Padding(
-                                                  padding: const EdgeInsets.all(4.0),
-                                                  child: Container( decoration : BoxDecoration(
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Container(
+                                                  decoration: BoxDecoration(
                                                     // color : Colors.white30 ,
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(30.0)
-                                                    ),
-                                                  ),child: Padding(
-                                                    padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                30.0)),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 10,
+                                                            right: 10,
+                                                            top: 4,
+                                                            bottom: 4),
                                                     child: Text(
-                                                          "${cubit.state.exercise[index].weight} kg",style: TextStyle(fontSize: 34 ,fontWeight: FontWeight.bold,color: Colors.white60),),
+                                                      "${cubit.state.exercise[index].weight} kg",
+                                                      style: TextStyle(
+                                                          fontSize: 34,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              Colors.white60),
+                                                    ),
                                                   )),
-                                                ),
-                                            Container(height: 60 ,width: 2,color: Colors.white30,),
-
+                                            ),
+                                            Container(
+                                              height: 60,
+                                              width: 2,
+                                              color: Colors.white30,
+                                            ),
                                             Column(
                                               children: [
                                                 Padding(
-                                                        padding: const EdgeInsets.all(4.0),
-                                                        child: Container( decoration : BoxDecoration(
-                                                          // color : Colors.white30 ,
-                                                          borderRadius: BorderRadius.all(
-                                                              Radius.circular(30.0)
-                                                          ),
-                                                        ),child: Padding(
-                                                          padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                                          child: Text(
-                                                                "${cubit.state.exercise[index].reps} reps",style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.white60),),
-                                                        )),
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                        // color : Colors.white30 ,
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    30.0)),
                                                       ),
-
-                                                Container(width : 80,height: 2,color: Colors.white30,),
-
-
-
-
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 10,
+                                                                right: 10,
+                                                                top: 4,
+                                                                bottom: 4),
+                                                        child: Text(
+                                                          "${cubit.state.exercise[index].reps} reps",
+                                                          style: AppTextStyle
+                                                              .itemTextStyle,
+                                                        ),
+                                                      )),
+                                                ),
+                                                Container(
+                                                  width: 80,
+                                                  height: 2,
+                                                  color: Colors.white30,
+                                                ),
                                                 Padding(
-                                                        padding: const EdgeInsets.all(4.0),
-                                                        child: Container( decoration : BoxDecoration(
-                                                          // color : Colors.white30 ,
-                                                          borderRadius: BorderRadius.all(
-                                                              Radius.circular(30.0)
-                                                          ),
-                                                        ),child: Padding(
-                                                          padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                                          child: Text(
-                                                            "${cubit.state.exercise[index].sets} sets",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold ,color: Colors.white60),),
-                                                        )),
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                        // color : Colors.white30 ,
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    30.0)),
                                                       ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 10,
+                                                                right: 10,
+                                                                top: 4,
+                                                                bottom: 4),
+                                                        child: Text(
+                                                            "${cubit.state.exercise[index].sets} sets",
+                                                            style: AppTextStyle
+                                                                .itemTextStyle),
+                                                      )),
+                                                ),
                                               ],
                                             )
-
                                           ],
                                         )
                                       ],
                                     ),
-                                    // child: Wrap(
-                                    //   // crossAxisAlignment: CrossAxisAlignment.start,
-                                    //   children: [
-                                    //    Padding(
-                                    //      padding: const EdgeInsets.all(4.0),
-                                    //      child: Container(
-                                    //          decoration : BoxDecoration(
-                                    //        color : Colors.white30 ,
-                                    //        borderRadius: BorderRadius.all(
-                                    //            Radius.circular(30.0)
-                                    //        ),
-                                    //      ),child: Padding(
-                                    //        padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                    //        child: Text(cubit.state.exercise[index].name,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                    //      )),
-                                    //    ),
-                                    //
-                                    //
-                                    //
-                                    //     Padding(
-                                    //       padding: const EdgeInsets.all(4.0),
-                                    //       child: Container( decoration : BoxDecoration(
-                                    //         color : Colors.white30 ,
-                                    //         borderRadius: BorderRadius.all(
-                                    //             Radius.circular(30.0)
-                                    //         ),
-                                    //       ),child: Padding(
-                                    //         padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                    //         child: Text(
-                                    //               "${cubit.state.exercise[index].weight} kg",style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                    //       )),
-                                    //     ),
-                                    //
-                                    //
-                                    //     Padding(
-                                    //       padding: const EdgeInsets.all(4.0),
-                                    //       child: Container( decoration : BoxDecoration(
-                                    //         color : Colors.white30 ,
-                                    //         borderRadius: BorderRadius.all(
-                                    //             Radius.circular(30.0)
-                                    //         ),
-                                    //       ),child: Padding(
-                                    //         padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                    //         child: Text(
-                                    //               "${cubit.state.exercise[index].reps} reps",style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                    //       )),
-                                    //     ),
-                                    //
-                                    //
-                                    //
-                                    //     Padding(
-                                    //       padding: const EdgeInsets.all(4.0),
-                                    //       child: Container( decoration : BoxDecoration(
-                                    //         color : Colors.white30 ,
-                                    //         borderRadius: BorderRadius.all(
-                                    //             Radius.circular(30.0)
-                                    //         ),
-                                    //       ),child: Padding(
-                                    //         padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                    //         child: Text(
-                                    //           "${cubit.state.exercise[index].sets} sets",style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                    //       )),
-                                    //     ),
-                                    //   ],
-                                    // ),
                                   ),
                                   Expanded(
                                     flex: 1,
                                     child: Checkbox(
-                                      activeColor: AppColors.cGray,
-                                        value: cubit.state.exercise[index].isCompleted,
+                                        activeColor: AppColors.cGray,
+                                        value: cubit
+                                            .state.exercise[index].isCompleted,
                                         onChanged: (toggle) {
                                           cubit.toggle(
                                               Exercise(
-                                                name: cubit.state.exercise[index].name,
-                                                weight: cubit.state.exercise[index].weight,
-                                                reps: cubit.state.exercise[index].reps,
-                                                sets: cubit.state.exercise[index].sets,
-                                                id: cubit.state.exercise[index].id,
+                                                name: cubit
+                                                    .state.exercise[index].name,
+                                                weight: cubit.state
+                                                    .exercise[index].weight,
+                                                reps: cubit
+                                                    .state.exercise[index].reps,
+                                                sets: cubit
+                                                    .state.exercise[index].sets,
+                                                id: cubit
+                                                    .state.exercise[index].id,
                                                 isCompleted: toggle!,
                                               ),
                                               index);
@@ -315,23 +298,8 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                                 ],
                               ),
                             ),
-
                           ],
                         ),
-                        // Checkbox(
-                        //     value: cubit.state.exercise[index].isCompleted,
-                        //     onChanged: (toggle) {
-                        //       cubit.toggle(
-                        //           Exercise(
-                        //             name: cubit.state.exercise[index].name,
-                        //             weight: cubit.state.exercise[index].weight,
-                        //             reps: cubit.state.exercise[index].reps,
-                        //             sets: cubit.state.exercise[index].sets,
-                        //             id: cubit.state.exercise[index].id,
-                        //             isCompleted: toggle!,
-                        //           ),
-                        //           index);
-                        //     }),
                       ],
                     ),
                   ),
@@ -345,7 +313,6 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
             if (result == null) {
               return;
             }
-
             cubit.addExercise(result);
           },
           child: Icon(
@@ -367,7 +334,6 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
           TextEditingController setsController = TextEditingController();
           return Scaffold(
             resizeToAvoidBottomInset: true,
-
             appBar: AppBar(
               backgroundColor: AppColors.primary,
               centerTitle: true,
@@ -392,15 +358,16 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                     int? rps = int.tryParse(repsController.text);
                     int? sts = int.tryParse(setsController.text);
                     if (wg == null && (weightController.text != "")) {
-                      showSnackBar(context, Colors.red,"Not valid weight value");
+                      showSnackBar(
+                          context, Colors.red, "Not valid weight value");
                       return;
                     }
                     if (rps == null && (repsController.text != "")) {
-                      showSnackBar(context, Colors.red,"Not valid reps value");
+                      showSnackBar(context, Colors.red, "Not valid reps value");
                       return;
                     }
                     if (sts == null && (setsController.text != "")) {
-                      showSnackBar(context, Colors.red,"Not valid sets value");
+                      showSnackBar(context, Colors.red, "Not valid sets value");
                       return;
                     }
 
@@ -419,17 +386,15 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                 )
               ],
             ),
-
             backgroundColor: AppColors.modalBackground,
-
-
             body: Container(
               height: double.infinity,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/boy_drink.png",),
+                    image: AssetImage(
+                      "assets/boy_drink.png",
+                    ),
                     fit: BoxFit.cover),
-
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -439,9 +404,10 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                     ),
                     TextField(
                       controller: nameController,
-                          style: TextStyle(color: Colors.white60),
+                      style: TextStyle(color: Colors.white60),
                       decoration: InputDecoration(
-                          fillColor: AppColors.cOrange,filled:true,
+                          fillColor: AppColors.cOrange,
+                          filled: true,
                           hintText: "Title",
                           border: OutlineInputBorder(
                               borderSide: BorderSide(width: 2.0),
@@ -450,49 +416,30 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    TextField(
+                    TextFieldCustom(
                       controller: weightController,
-                      style: TextStyle(color: Colors.white60),
-                        decoration: InputDecoration(
-                            fillColor: AppColors.cOrange,filled:true,
-                            hintText: "Weight",
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(width: 2.0),
-                                borderRadius: BorderRadius.circular(10.0))),
-                      ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      TextField(
-                        controller: repsController,
-                        style: TextStyle(color: Colors.white60),
-
-                        decoration: InputDecoration(
-                            fillColor: AppColors.cOrange,filled:true,
-                            hintText: "Reps",
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(width: 2.0),
-                                borderRadius: BorderRadius.circular(10.0))),
-                      ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      TextField(
-                        controller: setsController,
-                        style: TextStyle(color: Colors.white60),
-
-                        decoration: InputDecoration(
-                            fillColor: AppColors.cOrange,filled:true,
-                            hintText: "Sets",
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(width: 2.0),
-                                borderRadius: BorderRadius.circular(10.0))),
-                      ),
-                    ],
-                  ),
+                      hintTitle: "Weight",
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    TextFieldCustom(
+                      controller: repsController,
+                      hintTitle: "Reps",
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    TextFieldCustom(
+                      controller: setsController,
+                      hintTitle: "Sets",
+                    ),
+                  ],
                 ),
               ),
+            ),
           );
-        });
+        },
+    );
   }
 }

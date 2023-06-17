@@ -74,8 +74,8 @@ class DisplayWorkoutScreen extends StatelessWidget {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              backgroundColor: AppColors.cOcean.withOpacity(0.7),
-
+                              backgroundColor:
+                                  AppColors.cOcean.withOpacity(0.7),
                               title: const Text("Confirm"),
                               content: const Text(
                                   "Are you sure you wish to delete this item?"),
@@ -85,18 +85,17 @@ class DisplayWorkoutScreen extends StatelessWidget {
                                       Navigator.of(context).pop(false),
                                   child: const Text("CANCEL"),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.redAccent
-                                  ),
+                                      backgroundColor: Colors.redAccent),
                                 ),
                                 ElevatedButton(
-                                    onPressed: () async {
-                                      await cubit.removeWorkout(index);
-                                      Navigator.of(context).pop(true);
-                                    },
-                                    child: const Text("DELETE"),
+                                  onPressed: () async {
+                                    await cubit.removeWorkout(index);
+                                    Navigator.of(context).pop(true);
+                                  },
+                                  child: const Text("DELETE"),
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.greenAccent
-                                  ),),
+                                      backgroundColor: Colors.greenAccent),
+                                ),
                               ],
                             );
                           },
@@ -188,7 +187,8 @@ class DisplayWorkoutScreen extends StatelessWidget {
         ),
         onWillPop: () async {
           return false;
-        });
+        },
+    );
   }
 
   showModal(BuildContext context) async {
@@ -247,12 +247,14 @@ class DisplayWorkoutScreen extends StatelessWidget {
                           Navigator.of(context).pop(controller.text);
                         },
                         decoration: InputDecoration(
-                            hintText: "Type...",
-                            filled: true,
-                            fillColor: AppColors.cOcean,
-                            border: OutlineInputBorder(
-                                // borderSide: BorderSide(width: 2.0),
-                                borderRadius: BorderRadius.circular(10.0))),
+                          hintText: "Type...",
+                          filled: true,
+                          fillColor: AppColors.cOcean,
+                          border: OutlineInputBorder(
+                            // borderSide: BorderSide(width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
                       ),
                     )
                   ],
