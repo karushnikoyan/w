@@ -180,7 +180,8 @@ class DisplayWorkoutScreen extends StatelessWidget {
         ),
         onWillPop: () async {
           return false;
-        });
+        },
+    );
   }
 
   showModal(BuildContext context) async {
@@ -239,12 +240,14 @@ class DisplayWorkoutScreen extends StatelessWidget {
                           Navigator.of(context).pop(controller.text);
                         },
                         decoration: InputDecoration(
-                            hintText: "Type...",
-                            filled: true,
-                            fillColor: AppColors.cOcean,
-                            border: OutlineInputBorder(
-                                // borderSide: BorderSide(width: 2.0),
-                                borderRadius: BorderRadius.circular(10.0))),
+                          hintText: "Type...",
+                          filled: true,
+                          fillColor: AppColors.cOcean,
+                          border: OutlineInputBorder(
+                            // borderSide: BorderSide(width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
                       ),
                     )
                   ],

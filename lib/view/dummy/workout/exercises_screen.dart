@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:wo/core/entities/workout.dart';
-import 'package:wo/core/utils/app_consts.dart';
 import 'package:wo/core/utils/snackBar.dart';
-import 'package:wo/cubits/dummy/dummy_cubit.dart';
 import 'package:wo/cubits/dummy/exercise/exercise_cubit.dart';
 import 'package:wo/cubits/dummy/exercise/exercise_state.dart';
-import 'package:wo/view/dummy/workout/widgets/capsul_widget.dart';
-
+import 'package:wo/view/dummy/workout/widgets/text_field_custom.dart';
 import '../../../core/entities/exercise.dart';
 import '../../../core/utils/style.dart';
 
@@ -23,19 +19,20 @@ class ExerciseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ExerciseCubit>(
-        create: (_) => ExerciseCubit(workout: workout),
-        child: BlocBuilder<ExerciseCubit, ExerciseState>(
-          builder: (context, state) {
-            switch (state.stage) {
-              case ExerciseStateStage.display:
-                return ExerciseDisplayScreen();
-              case ExerciseStateStage.loading:
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-            }
-          },
-        ));
+      create: (_) => ExerciseCubit(workout: workout),
+      child: BlocBuilder<ExerciseCubit, ExerciseState>(
+        builder: (context, state) {
+          switch (state.stage) {
+            case ExerciseStateStage.display:
+              return ExerciseDisplayScreen();
+            case ExerciseStateStage.loading:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+          }
+        },
+      ),
+    );
   }
 }
 
@@ -319,15 +316,16 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                     int? rps = int.tryParse(repsController.text);
                     int? sts = int.tryParse(setsController.text);
                     if (wg == null && (weightController.text != "")) {
-                      showSnackBar(context, Colors.red,"Not valid weight value");
+                      showSnackBar(
+                          context, Colors.red, "Not valid weight value");
                       return;
                     }
                     if (rps == null && (repsController.text != "")) {
-                      showSnackBar(context, Colors.red,"Not valid reps value");
+                      showSnackBar(context, Colors.red, "Not valid reps value");
                       return;
                     }
                     if (sts == null && (setsController.text != "")) {
-                      showSnackBar(context, Colors.red,"Not valid sets value");
+                      showSnackBar(context, Colors.red, "Not valid sets value");
                       return;
                     }
 
@@ -346,80 +344,61 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                 )
               ],
             ),
-
             backgroundColor: AppColors.modalBackground,
 
             body: Container(
               height: double.infinity,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/boy_drink.png",),
+                    image: AssetImage(
+                      "assets/boy_drink.png",
+                    ),
                     fit: BoxFit.cover),
-
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 30.0,
-                        ),
-                        TextField(
-                          controller: nameController,
-                              style: TextStyle(color: Colors.white60),
-                          decoration: InputDecoration(
-                              fillColor: AppColors.cOrange,filled:true,
-                              hintText: "Title",
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 2.0),
-                                  borderRadius: BorderRadius.circular(10.0))),
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        TextField(
-                          controller: weightController,
-                          style: TextStyle(color: Colors.white60),
-
-                          decoration: InputDecoration(
-                              fillColor: AppColors.cOrange,filled:true,
-                              hintText: "Weight",
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 2.0),
-                                  borderRadius: BorderRadius.circular(10.0))),
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        TextField(
-                          controller: repsController,
-                          style: TextStyle(color: Colors.white60),
-
-                          decoration: InputDecoration(
-                              fillColor: AppColors.cOrange,filled:true,
-                              hintText: "Reps",
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 2.0),
-                                  borderRadius: BorderRadius.circular(10.0))),
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        TextField(
-                          controller: setsController,
-                          style: TextStyle(color: Colors.white60),
-
-                        decoration: InputDecoration(
-                            fillColor: AppColors.cOrange,filled:true,
-                            hintText: "Sets",
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(width: 2.0),
-                                borderRadius: BorderRadius.circular(10.0))),
-                      ),
-                    ],
-                ),
-                  ),
               ),
-            );
-        });
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    TextField(
+                      controller: nameController,
+                      style: TextStyle(color: Colors.white60),
+                      decoration: InputDecoration(
+                          fillColor: AppColors.cOrange,
+                          filled: true,
+                          hintText: "Title",
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0))),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    TextFieldCustom(
+                      controller: weightController,
+                      hintTitle: "Weight",
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    TextFieldCustom(
+                      controller: repsController,
+                      hintTitle: "Reps",
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    TextFieldCustom(
+                      controller: setsController,
+                      hintTitle: "Sets",
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+    );
   }
 }
