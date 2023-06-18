@@ -90,6 +90,7 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
+                              backgroundColor: AppColors.cOrange.withOpacity(0.7),
                               title: const Text("Confirm"),
                               content: const Text(
                                   "Are you sure you wish to delete this item?"),
