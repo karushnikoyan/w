@@ -6,8 +6,9 @@ import '../../../../core/utils/style.dart';
 class TextFieldCustom extends StatelessWidget {
   final TextEditingController controller;
   final String hintTitle;
+  final Function(String)? onSubmitted;
 
-  TextFieldCustom({required this.controller,required this.hintTitle});
+  TextFieldCustom({required this.controller,required this.hintTitle,this.onSubmitted } );
 
 
 
@@ -16,6 +17,8 @@ class TextFieldCustom extends StatelessWidget {
     return  TextField(
       controller: controller,
       style: TextStyle(color: Colors.white60),
+      onSubmitted: onSubmitted,
+
       decoration: InputDecoration(
           fillColor: AppColors.cOrange,
           filled: true,

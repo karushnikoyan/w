@@ -77,240 +77,180 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
               return false;
             },
             child: ListView.builder(
-
                 itemCount: cubit.state.exercise.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding:
                         EdgeInsets.all(MediaQuery.of(context).size.width / 30),
                     child: Dismissible(
-                      key: UniqueKey(),
-                      confirmDismiss: (DismissDirection direction) async {
-                        return await showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              backgroundColor: AppColors.cOrange.withOpacity(0.7),
-                              title: const Text("Confirm"),
-                              content: const Text(
-                                  "Are you sure you wish to delete this item?"),
-                              actions: <Widget>[
-                                ElevatedButton(
-                                  onPressed: () =>
-                                      Navigator.of(context).pop(false),
-                                  child: const Text("CANCEL"),
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.cancel),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () async {
-                                    await cubit.removeExercise(index);
-                                    Navigator.of(context).pop(true);
-                                  },
-                                  child: const Text("DELETE"),
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.apply),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-
-                      direction: DismissDirection.endToStart,
-
-                      background: Align(
-                        alignment: Alignment.centerRight,
-                        child: Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                          size: 30,
+                        key: UniqueKey(),
+                        confirmDismiss: (DismissDirection direction) async {
+                          return await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor:
+                                    AppColors.cOrange.withOpacity(0.7),
+                                title: const Text("Confirm"),
+                                content: const Text(
+                                    "Are you sure you wish to delete this item?"),
+                                actions: <Widget>[
+                                  ElevatedButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(false),
+                                    child: const Text("CANCEL"),
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.cancel),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      await cubit.removeExercise(index);
+                                      Navigator.of(context).pop(true);
+                                    },
+                                    child: const Text("DELETE"),
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.apply),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        direction: DismissDirection.endToStart,
+                        background: Align(
+                          alignment: Alignment.centerRight,
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                            size: 30,
+                          ),
                         ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            children: [
-                              const SizedBox(height: 10),
-                              Container(
-                                width: size.width * 0.80,
-                                height: size.height / 6,
-                                decoration: BoxDecoration(
-                                  color: AppColors.cOrange,
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(20.0)),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Expanded(
-                                      flex: 4,
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Container(
-                                                decoration: BoxDecoration(
-                                                  // color : Colors.white30 ,
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(30.0)),
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 10,
-                                                      right: 10,
-                                                      top: 4,
-                                                      bottom: 4),
-                                                  child: Text(
-                                                      cubit.state.exercise[index]
-                                                          .name,
-                                                      style: AppTextStyle
-                                                          .itemTextStyle),
-                                                )),
+                        child: Center(
+                          child: Container(
+                              width: size.width * 0.8,
+                              height: size.height / 6,
+                              decoration: BoxDecoration(
+                                color: AppColors.cOrange,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0)),
+                              ),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: Text(
+                                        cubit.state.exercise[index].name,
+                                        style: AppTextStyle.itemTextStyle),
+                                  ),
+                                  Container(
+                                    height: 2,
+                                    color: Colors.white30,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Flexible(
+                                        flex: 3,
+                                        child: Center(
+
+                                          child: Text(
+                                            cubit.state.exercise[index].weight !=
+                                                    ""
+                                                ? "${cubit.state.exercise[index].weight} kg"
+                                                : '',
+                                            maxLines: 1,
+                                            overflow: TextOverflow.visible,
+                                            style: TextStyle(
+                                                fontSize: 34,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white60),
                                           ),
-                                          Padding(
-                                            padding:
-                                            const EdgeInsets.only(left: 20),
-                                            child: Container(
+                                        ),
+                                      ),
+                                      Container(
+                                          height: 80,
+                                          width: 2,
+                                          color: Colors.white30,
+                                        ),
+
+                                      Expanded(
+                                        flex: 4,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10, top: 8, bottom: 4),
+                                              child: Text(
+                                                cubit.state.exercise[index]
+                                                            .reps !=
+                                                        ""
+                                                    ? "${cubit.state.exercise[index].reps} reps"
+                                                    : "",
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style:
+                                                    AppTextStyle.itemTextStyle,
+                                              ),
+                                            ),
+                                            Container(
                                               height: 2,
                                               color: Colors.white30,
                                             ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                const EdgeInsets.all(4.0),
-                                                child: Container(
-                                                    decoration: BoxDecoration(
-                                                      // color : Colors.white30 ,
-                                                      borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              30.0)),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                      const EdgeInsets.only(
-                                                          left: 10,
-                                                          right: 10,
-                                                          top: 4,
-                                                          bottom: 4),
-                                                      child: Text(
-                                                        "${cubit.state.exercise[index].weight} kg",
-                                                        style: TextStyle(
-                                                            fontSize: 34,
-                                                            fontWeight:
-                                                            FontWeight.bold,
-                                                            color:
-                                                            Colors.white60),
-                                                      ),
-                                                    )),
-                                              ),
-                                              Container(
-                                                height: 60,
-                                                width: 2,
-                                                color: Colors.white30,
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.all(4.0),
-                                                    child: Container(
-                                                        decoration: BoxDecoration(
-                                                          // color : Colors.white30 ,
-                                                          borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  30.0)),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                          const EdgeInsets
-                                                              .only(
-                                                              left: 10,
-                                                              right: 10,
-                                                              top: 4,
-                                                              bottom: 4),
-                                                          child: Text(
-                                                            "${cubit.state.exercise[index].reps} reps",
-                                                            style: AppTextStyle
-                                                                .itemTextStyle,
-                                                          ),
-                                                        )),
-                                                  ),
-                                                  Container(
-                                                    width: 80,
-                                                    height: 2,
-                                                    color: Colors.white30,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.all(4.0),
-                                                    child: Container(
-                                                        decoration: BoxDecoration(
-                                                          // color : Colors.white30 ,
-                                                          borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  30.0)),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                          const EdgeInsets
-                                                              .only(
-                                                              left: 10,
-                                                              right: 10,
-                                                              top: 4,
-                                                              bottom: 4),
-                                                          child: Text(
-                                                              "${cubit.state.exercise[index].sets} sets",
-                                                              style: AppTextStyle
-                                                                  .itemTextStyle),
-                                                        )),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          )
-                                        ],
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10,
+
+                                                  top: 8,
+                                                  bottom: 4),
+                                              child: Text(
+                                                  cubit.state.exercise[index]
+                                                              .sets !=
+                                                          ""
+                                                      ? "${cubit.state.exercise[index].sets} sets"
+                                                      : "",
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: AppTextStyle
+                                                      .itemTextStyle),
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Checkbox(
-                                          activeColor: AppColors.cGray,
-                                          value: cubit
-                                              .state.exercise[index].isCompleted,
-                                          onChanged: (toggle) {
-                                            cubit.toggle(
-                                                Exercise(
-                                                  name: cubit
-                                                      .state.exercise[index].name,
-                                                  weight: cubit.state
-                                                      .exercise[index].weight,
-                                                  reps: cubit
-                                                      .state.exercise[index].reps,
-                                                  sets: cubit
-                                                      .state.exercise[index].sets,
-                                                  id: cubit
-                                                      .state.exercise[index].id,
-                                                  isCompleted: toggle!,
-                                                ),
-                                                index);
-                                          }),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Checkbox(
+                                            activeColor: AppColors.cGray,
+                                            value: cubit.state.exercise[index]
+                                                .isCompleted,
+                                            onChanged: (toggle) {
+                                              cubit.toggle(
+                                                  Exercise(
+                                                    name: cubit.state
+                                                        .exercise[index].name,
+                                                    weight: cubit.state
+                                                        .exercise[index].weight,
+                                                    reps: cubit.state
+                                                        .exercise[index].reps,
+                                                    sets: cubit.state
+                                                        .exercise[index].sets,
+                                                    id: cubit
+                                                        .state.exercise[index].id,
+                                                    isCompleted: toggle!,
+                                                  ),
+                                                  index);
+                                            }),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              )),
+                        )),
                   );
                 }),
           ),
@@ -336,115 +276,112 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
 
   showModal(BuildContext context) async {
     return await showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          TextEditingController nameController = TextEditingController();
-          TextEditingController weightController = TextEditingController();
-          TextEditingController repsController = TextEditingController();
-          TextEditingController setsController = TextEditingController();
-          return Scaffold(
-            resizeToAvoidBottomInset: true,
-
-            appBar: AppBar(
-              backgroundColor: AppColors.primary,
-              centerTitle: true,
-              title: Text("Create new exercise"),
-              leading: IconButton(
-                icon: Icon(
-                  Icons.dangerous,
-                  color: Colors.red,
-                ),
+      context: context,
+      builder: (context) {
+        TextEditingController nameController = TextEditingController();
+        TextEditingController weightController = TextEditingController();
+        TextEditingController repsController = TextEditingController();
+        TextEditingController setsController = TextEditingController();
+        return Scaffold(
+          resizeToAvoidBottomInset: true,
+          appBar: AppBar(
+            backgroundColor: AppColors.primary,
+            centerTitle: true,
+            title: Text("Create new exercise"),
+            leading: IconButton(
+              icon: Icon(
+                Icons.dangerous,
+                color: Colors.red,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            actions: [
+              IconButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  if (nameController.text == '') {
+                    showSnackBar(context, Colors.red, "Enter title");
+                    return;
+                  }
+                  double? wg = double.tryParse(weightController.text);
+                  int? rps = int.tryParse(repsController.text);
+                  int? sts = int.tryParse(setsController.text);
+                  if (wg == null && (weightController.text != "")) {
+                    showSnackBar(context, Colors.red, "Not valid weight value");
+                    return;
+                  }
+                  if (rps == null && (repsController.text != "")) {
+                    showSnackBar(context, Colors.red, "Not valid reps value");
+                    return;
+                  }
+                  if (sts == null && (setsController.text != "")) {
+                    showSnackBar(context, Colors.red, "Not valid sets value");
+                    return;
+                  }
+
+                  var exercise = Exercise(
+                      name: nameController.text,
+                      weight: weightController.text,
+                      reps: repsController.text,
+                      sets: setsController.text);
+
+                  Navigator.of(context).pop(exercise);
                 },
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    if (nameController.text == '') {
-                      showSnackBar(context, Colors.red, "Enter title");
-                      return;
-                    }
-                    double? wg = double.tryParse(weightController.text);
-                    int? rps = int.tryParse(repsController.text);
-                    int? sts = int.tryParse(setsController.text);
-                    if (wg == null && (weightController.text != "")) {
-                      showSnackBar(
-                          context, Colors.red, "Not valid weight value");
-                      return;
-                    }
-                    if (rps == null && (repsController.text != "")) {
-                      showSnackBar(context, Colors.red, "Not valid reps value");
-                      return;
-                    }
-                    if (sts == null && (setsController.text != "")) {
-                      showSnackBar(context, Colors.red, "Not valid sets value");
-                      return;
-                    }
-
-                    var exercise = Exercise(
-                        name: nameController.text,
-                        weight: weightController.text,
-                        reps: repsController.text,
-                        sets: setsController.text);
-
-                    Navigator.of(context).pop(exercise);
-                  },
-                  icon: Icon(
-                    Icons.done_outline,
-                    color: Colors.green,
-                  ),
-                )
-              ],
-            ),
-            backgroundColor: AppColors.modalBackground,
-
-            body: Container(
-              height: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(
-                      "assets/boy_drink.png",
-                    ),
-                    fit: BoxFit.cover),
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 30.0,
-                    ),
-                    TextFieldCustom(
-                      controller: nameController,
-                      hintTitle: "Title",
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    TextFieldCustom(
-                      controller: weightController,
-                      hintTitle: "Weight",
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    TextFieldCustom(
-                      controller: repsController,
-                      hintTitle: "Reps",
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    TextFieldCustom(
-                      controller: setsController,
-                      hintTitle: "Sets",
-                    ),
-                  ],
+                icon: Icon(
+                  Icons.done_outline,
+                  color: Colors.green,
                 ),
+              )
+            ],
+          ),
+          backgroundColor: AppColors.modalBackground,
+          body: Container(
+            height: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+                    "assets/boy_drink.png",
+                  ),
+                  fit: BoxFit.cover),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 30.0,
+                  ),
+                  TextFieldCustom(
+                    controller: nameController,
+                    hintTitle: "Title",
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  TextFieldCustom(
+                    controller: weightController,
+                    hintTitle: "Weight",
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  TextFieldCustom(
+                    controller: repsController,
+                    hintTitle: "Reps",
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  TextFieldCustom(
+                    controller: setsController,
+                    hintTitle: "Sets",
+                  ),
+                ],
               ),
             ),
-          );
-        },
+          ),
+        );
+      },
     );
   }
 }

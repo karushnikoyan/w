@@ -71,7 +71,6 @@ class DisplayWorkoutScreen extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: cubit.state.workoutList.length,
                     itemBuilder: (context, index) {
-                      Workout item = cubit.state.workoutList[index];
                       return Dismissible(
                         key: UniqueKey(),
                         confirmDismiss: (DismissDirection direction) async {
@@ -79,6 +78,8 @@ class DisplayWorkoutScreen extends StatelessWidget {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
+                                backgroundColor:
+                                AppColors.cOcean.withOpacity(0.7),
                                 title: const Text("Confirm"),
                                 content: const Text(
                                     "Are you sure you wish to delete this item?"),
