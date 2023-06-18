@@ -1,14 +1,15 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/style.dart';
 
 class TextFieldCustom extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintTitle;
 
-  TextFieldCustom({@required this.controller,@required this.hintTitle});
+  TextFieldCustom({required this.controller,required this.hintTitle});
 
-  var controller;
-  var hintTitle;
+
 
   @override
   Widget build(BuildContext context) {

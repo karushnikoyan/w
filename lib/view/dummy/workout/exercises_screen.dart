@@ -361,16 +361,9 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                     const SizedBox(
                       height: 30.0,
                     ),
-                    TextField(
+                    TextFieldCustom(
                       controller: nameController,
-                      style: TextStyle(color: Colors.white60),
-                      decoration: InputDecoration(
-                          fillColor: AppColors.cOrange,
-                          filled: true,
-                          hintText: "Title",
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(width: 2.0),
-                              borderRadius: BorderRadius.circular(10.0))),
+                      hintTitle: "Title",
                     ),
                     const SizedBox(
                       height: 10.0,
