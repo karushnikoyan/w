@@ -131,105 +131,172 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                         children: [
                           Column(
                             children: [
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              const SizedBox(height: 10),
                               Container(
                                 width: size.width * 0.80,
-                                height: size.height / 6
-                                ,
+                                height: size.height / 6,
                                 decoration: BoxDecoration(
-                                    color: AppColors.cOrange,
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(20.0)
-                                  ),
-
-
+                                  color: AppColors.cOrange,
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0)),
                                 ),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
                                   children: [
                                     Expanded(
                                       flex: 4,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(00.0),
-                                        child: Wrap(
-                                          // crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                           Padding(
-                                             padding: const EdgeInsets.all(4.0),
-                                             child: Container(
-                                                 decoration : BoxDecoration(
-                                               color : Colors.white30 ,
-                                               borderRadius: BorderRadius.all(
-                                                   Radius.circular(30.0)
-                                               ),
-                                             ),child: Padding(
-                                               padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                               child: Text(cubit.state.exercise[index].name,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                             )),
-                                           ),
-
-
-                                            if(cubit.state.exercise[index].weight != "")
-                                            Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Container( decoration : BoxDecoration(
-                                                color : Colors.white30 ,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(30.0)
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                  // color : Colors.white30 ,
+                                                  borderRadius: BorderRadius.all(
+                                                      Radius.circular(30.0)),
                                                 ),
-                                              ),child: Padding(
-                                                padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                                child: Text("${cubit.state.exercise[index].weight} kg",style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                              )),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      left: 10,
+                                                      right: 10,
+                                                      top: 4,
+                                                      bottom: 4),
+                                                  child: Text(
+                                                      cubit.state.exercise[index]
+                                                          .name,
+                                                      style: AppTextStyle
+                                                          .itemTextStyle),
+                                                )),
+                                          ),
+                                          Padding(
+                                            padding:
+                                            const EdgeInsets.only(left: 20),
+                                            child: Container(
+                                              height: 2,
+                                              color: Colors.white30,
                                             ),
-
-
-                                            Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Container( decoration : BoxDecoration(
-                                                color : Colors.white30 ,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(30.0)
-                                                ),
-                                              ),child: Padding(
-                                                padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                                child: Text(cubit.state.exercise[index].reps,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                              )),
-                                            ),
-
-
-
-                                            Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Container( decoration : BoxDecoration(
-                                                color : Colors.white30 ,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(30.0)
-                                                ),
-                                              ),child: Padding(
-                                                padding: const EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
-                                                child: Text(cubit.state.exercise[index].sets,style: TextStyle(fontSize: 22 ,color: Colors.white60),),
-                                              )),
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                const EdgeInsets.all(4.0),
+                                                child: Container(
+                                                    decoration: BoxDecoration(
+                                                      // color : Colors.white30 ,
+                                                      borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              30.0)),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10,
+                                                          right: 10,
+                                                          top: 4,
+                                                          bottom: 4),
+                                                      child: Text(
+                                                        "${cubit.state.exercise[index].weight} kg",
+                                                        style: TextStyle(
+                                                            fontSize: 34,
+                                                            fontWeight:
+                                                            FontWeight.bold,
+                                                            color:
+                                                            Colors.white60),
+                                                      ),
+                                                    )),
+                                              ),
+                                              Container(
+                                                height: 60,
+                                                width: 2,
+                                                color: Colors.white30,
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                    const EdgeInsets.all(4.0),
+                                                    child: Container(
+                                                        decoration: BoxDecoration(
+                                                          // color : Colors.white30 ,
+                                                          borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  30.0)),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                          const EdgeInsets
+                                                              .only(
+                                                              left: 10,
+                                                              right: 10,
+                                                              top: 4,
+                                                              bottom: 4),
+                                                          child: Text(
+                                                            "${cubit.state.exercise[index].reps} reps",
+                                                            style: AppTextStyle
+                                                                .itemTextStyle,
+                                                          ),
+                                                        )),
+                                                  ),
+                                                  Container(
+                                                    width: 80,
+                                                    height: 2,
+                                                    color: Colors.white30,
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                    const EdgeInsets.all(4.0),
+                                                    child: Container(
+                                                        decoration: BoxDecoration(
+                                                          // color : Colors.white30 ,
+                                                          borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  30.0)),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                          const EdgeInsets
+                                                              .only(
+                                                              left: 10,
+                                                              right: 10,
+                                                              top: 4,
+                                                              bottom: 4),
+                                                          child: Text(
+                                                              "${cubit.state.exercise[index].sets} sets",
+                                                              style: AppTextStyle
+                                                                  .itemTextStyle),
+                                                        )),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          )
+                                        ],
                                       ),
                                     ),
                                     Expanded(
                                       flex: 1,
                                       child: Checkbox(
-                                        activeColor: AppColors.cGray,
-                                          value: cubit.state.exercise[index].isCompleted,
+                                          activeColor: AppColors.cGray,
+                                          value: cubit
+                                              .state.exercise[index].isCompleted,
                                           onChanged: (toggle) {
                                             cubit.toggle(
                                                 Exercise(
-                                                  name: cubit.state.exercise[index].name,
-                                                  weight: cubit.state.exercise[index].weight,
-                                                  reps: cubit.state.exercise[index].reps,
-                                                  sets: cubit.state.exercise[index].sets,
-                                                  id: cubit.state.exercise[index].id,
+                                                  name: cubit
+                                                      .state.exercise[index].name,
+                                                  weight: cubit.state
+                                                      .exercise[index].weight,
+                                                  reps: cubit
+                                                      .state.exercise[index].reps,
+                                                  sets: cubit
+                                                      .state.exercise[index].sets,
+                                                  id: cubit
+                                                      .state.exercise[index].id,
                                                   isCompleted: toggle!,
                                                 ),
                                                 index);
@@ -238,23 +305,8 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                                   ],
                                 ),
                               ),
-
                             ],
                           ),
-                          // Checkbox(
-                          //     value: cubit.state.exercise[index].isCompleted,
-                          //     onChanged: (toggle) {
-                          //       cubit.toggle(
-                          //           Exercise(
-                          //             name: cubit.state.exercise[index].name,
-                          //             weight: cubit.state.exercise[index].weight,
-                          //             reps: cubit.state.exercise[index].reps,
-                          //             sets: cubit.state.exercise[index].sets,
-                          //             id: cubit.state.exercise[index].id,
-                          //             isCompleted: toggle!,
-                          //           ),
-                          //           index);
-                          //     }),
                         ],
                       ),
                     ),
